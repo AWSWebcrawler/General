@@ -7,11 +7,12 @@ assignees: ''
 
 ---
 
-Als <Rolle> möchte ich <Was>, um <Warum>
+Als [ROLLE] möchte ich [WAS], um [Warum]
 
-<Hier ergänzende Erläuterungen>
+[Hier ergänzende Erläuterungen>]
 
 ### DoD:
-- [ ] 
-- [ ] 
-- [ ]
+- [ ] DOD1
+- [ ] DOD2
+- [ ] usw.
+
