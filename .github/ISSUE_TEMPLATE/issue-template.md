@@ -9,7 +9,7 @@ assignees: ''
 
 Als [ROLLE] möchte ich [WAS], um [Warum]
 
-[Hier ergänzende Erläuterungen>]
+[Hier ergänzende Erläuterungen]
 
 ### DoD:
 - [ ] DOD1
