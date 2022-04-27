@@ -1,6 +1,6 @@
-"""Steuerung der Ablauflogik:
-    - Einlesen der Configdateien
-    - In Schleife über die definierten Scraping URLs iterieren
-    - Aufrufen des spider.py Scripts um HTML response zu erhalten
-    - Aufrufen der item_factory um einzelne Tags zu extrahieren
-    - Aufrufen des Store Moduls"""
+"""Control of the program logic:
+    - Reading the config files by calling the config_reader
+    - Iterate over the defined scraping URLs in a loop
+    - Call spider module to get HTML-text from the response
+    - Call item_factory to extract individual tags
+    - Calling the store module to save to csv file or S3 Bucket"""

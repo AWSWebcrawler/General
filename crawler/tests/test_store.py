@@ -1,3 +1,4 @@
+#example test script
 def test_store_to_csv():
     """ Möglicher Test:
         - Anlegen eines Items
