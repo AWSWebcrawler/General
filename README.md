@@ -72,3 +72,6 @@ The goal for this module is to detect whether you are on a local machine or in a
 environment variables. The correct storage method is then automatically selected either as a 
 csv file (local) or in an S3 bucket (AWS).
 
+## logging and exceptions
+The logging and exceptions modules are used across the entire project. 
+
