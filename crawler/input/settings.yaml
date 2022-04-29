@@ -1,10 +1,10 @@
 #define settings here
 #could be done in a similar style like it is done in scrapy
-#    safari: safari
-#    iphone: iphone
-#    android: android
-#    chrome_windows: chrome_windows
-#    chrome_macintosh: chrome_macintosh
-#    firefox_windows: firefox_windows
-#    firefox_macintosh: firefox_macintosh
-#    linux: linux
+#    client: safari
+#    client: iphone
+#    client: android
+#    client: chrome_windows
+#    client: chrome_macintosh
+#    client: firefox_windows
+#    client: firefox_macintosh
+#    client: linux
