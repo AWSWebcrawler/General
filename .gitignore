@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# PyCharm local projectfiles
+.idea/.gitignore
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/WebScraper.iml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/General.iml
