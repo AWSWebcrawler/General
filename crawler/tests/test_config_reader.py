@@ -9,9 +9,10 @@ def test_settings_reader():
     yaml.dump(data, file)
     file.close()
     test_read = config_reader.read_settings_file("./test_settings.yaml")
-    assert test_read["client"] == "safari", "Fehler in config_reader methode read_settings_file. Erwarteter Wert für " \
-                                            "client ist safari. "
+    assert test_read["client"] == "safari", "Error in config_reader method read_settings_file. Expected value for " \
+                                            "client is safari. "
     os.remove("test_settings.yaml")
+
 
 def test_url_reader():
     data = ["https://amazon.de", "https://tagesschau.de"]
@@ -19,8 +20,8 @@ def test_url_reader():
     yaml.dump(data, file)
     file.close()
     test_read = config_reader.read_settings_file("./test_urls.yaml")
-    assert test_read[1] == "https://tagesschau.de", "Fehler in config_reader methode read_url_list. Erwarteter Wert für " \
-                                            "Liste an Index 1 ist https://tagesschau.de. "
+    assert test_read[1] == "https://tagesschau.de", "Error in config_reader method read_url_list. Expected value for " \
+                                            "list at index 1 is https://tagesschau.de. "
     os.remove("test_urls.yaml")
 
 
