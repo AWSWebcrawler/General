@@ -1,5 +1,6 @@
 """Generates a header for the subsequent web request based on the settings dictionary.
 Returns the header information as a dictionary."""
+
 import random
 import logging
 
