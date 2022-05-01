@@ -1,5 +1,5 @@
 from crawler.header_creater.create_header import generate_header
-from crawler.log import logging_config
+from crawler.Backup import logging_config
 
 test_map = "android"
 

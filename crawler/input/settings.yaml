@@ -7,7 +7,7 @@
 #    client: chrome_macintosh
 #    client: firefox_windows
 #    client: firefox_macintosh
-#    client: linux
+client: linux
 logconfig:
   version: 1
   disable_existing_loggers: true
@@ -26,7 +26,8 @@ logconfig:
     file_handler:
       class: logging.FileHandler
       level: DEBUG
-      filename: log/Webscraperlog.log
+      filename: log/log.log
+      mode: a
       formatter: standard
 
   root:
