@@ -1,8 +1,8 @@
-from ..item_factory.item_factory import create_item
+from crawler.item_factory import item_factory
 
 html= ""
-with open('../item_factory/html.txt', 'r') as file:
+with open('./html.txt', 'r') as file:
     html = file.read()
 
-item = create_item(html)
+item = item_factory.create_item(html)
 print(item)
