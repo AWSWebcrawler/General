@@ -1,4 +1,5 @@
 import yaml
+
 from yaml import SafeLoader
 import validators
 
@@ -67,4 +68,5 @@ def validate_urls(urls: list):
             raise exceptions_config_reader.MalformedUrlError("URL " + url + " not valid.")
 
 
-read_config()
+
+
