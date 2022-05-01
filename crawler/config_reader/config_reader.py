@@ -5,7 +5,9 @@ from yaml.loader import SafeLoader
 def read_settings_file(file_path):
     """Einlesen eines yaml-Files in dem die Konfiguration vorgenommen wird. Speicherung in einem Dictionary.
     Rückgabe des Dictionary"""
-    pass
+    with open(file_path, 'r') as stream:
+        yamlFile = yaml.load(stream, Loader=yaml.FullLoader)
+    return yamlFile
 
 def read_URL_list(file_path):
     """Einlesen eines Files in dem die zu scrapenden URLs aufgeführt sind.
