@@ -1,7 +1,0 @@
-#define urls here
-#yaml syntax "---" at the start of document, "..." at the end of document
-#elements of a list start with a "-" and are on the same indent layer
-
----
-- https://amazon.de
-...
