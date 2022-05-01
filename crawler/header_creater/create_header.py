@@ -1,11 +1,13 @@
 """Generates a header for the subsequent web request based on the settings dictionary.
 Returns the header information as a dictionary."""
 
-import logging
 import random
+import logging
 
 
-def generate_header(client) -> dict:
+def generate_header(settings) -> dict:
+    client = settings['client']
+    logging.info('started generate_header started with client: ' + client)
     user_agent = get_user_agent(client)
     header_dict = {"user-agent": user_agent,
                    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,"
@@ -17,14 +19,18 @@ def generate_header(client) -> dict:
     # header = {"user-agent: " + user_agent +" Accept: text/html,application/xhtml+xml,application/xml;q=0.9,
     # */*;q=0.8; " + " Accept-Language: de,en-US;q=0.7,en;q=0.3" + " Accept-Encoding: gzip, deflate,
     # br" + " Content-Type": "application/json; " + " charset=utf-8;" } data = {'key': 'value'}
+    logging.info('end of generate_header, with header created: ' + str(header_dict))
     return header_dict
 
 
-
 def get_user_agent(browser_type):
-    return user_agents[browser_type][0]
-    #random_number = random.randrange(0, len(user_agents[browser_type]))
-    #return user_agents[browser_type][random_number]
+    logging.info('started get_user_agent with client: ' + browser_type)
+    agent_string = user_agents[browser_type][0]
+    logging.info('end of get_user_header, with agent String: ' + agent_string)
+    return agent_string
+    # random_number = random.randrange(0, len(user_agents[browser_type]))
+    # return user_agents[browser_type][random_number]
+
 
 user_agents = {
     'iphone': [
@@ -37,7 +43,7 @@ user_agents = {
     'android': [
         'Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.41 Mobile Safari/537.36',
         'Mozilla/5.0 (Linux; Android 12; SM-A205U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.41 Mobile Safari/537.36',
-        #'Mozilla/5.0 (SMART-TV; Linux; Tizen 2.4.0) AppleWebkit/538.1 (KHTML, like Gecko) SamsungBrowser/1.1 TV Safari/538.1',
+        # 'Mozilla/5.0 (SMART-TV; Linux; Tizen 2.4.0) AppleWebkit/538.1 (KHTML, like Gecko) SamsungBrowser/1.1 TV Safari/538.1',
         'Mozilla/5.0 (Linux; Android 11; SAMSUNG SM-A515F) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/16.0 Chrome/92.0.4515.166 Mobile Safari/537.36',
         'Mozilla/5.0 (Linux; Android 6.0.1; Redmi 4A Build/MMB29M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/60.0.3112.116 Mobile Safari/537.36',
         'Mozilla/5.0 (Linux; Android 7.1.2; Redmi 4X Build/N2G47H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.111 Mobile Safari/537.36'
@@ -63,14 +69,14 @@ user_agents = {
         'Mozilla/5.0 (Windows NT 5.1; rv:30.0) Gecko/20100101 Firefox/30.0',
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:40.0) Gecko/20100101 Firefox/40.0.2 Waterfox/40.0.2',
     ],
-    'firefox_macintosh':[
+    'firefox_macintosh': [
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:99.0) Gecko/20100101 Firefox/99.0',
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:40.0) Gecko/20100101 Firefox/40.0',
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:40.0) Gecko/20100101 Firefox/40.0',
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:40.0) Gecko/20100101 Firefox/40.0',
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:40.0) Gecko/20100101 Firefox/40.0',
     ],
-    'safari':[
+    'safari': [
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:99.0) Gecko/20100101 Firefox/99.0',
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/600.7.12 (KHTML, like Gecko) Version/8.0.7 Safari/600.7.12',
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/600.8.9 (KHTML, like Gecko) Version/7.1.8 Safari/537.85.17',
