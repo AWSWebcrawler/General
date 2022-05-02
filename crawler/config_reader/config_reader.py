@@ -3,19 +3,19 @@ import yaml
 from yaml import SafeLoader
 import validators
 
-from crawler.exceptions import exceptions_config_reader
+from exceptions import exceptions_config_reader
 
 """The read_config method ist the one that should be called by the crawler main-script.
 It returns a dictionary which contains the urls and the settings from the config Files."""
 
 
-def read_config() -> dict:
+def read_config(url_file, settings_file) -> dict:
     """Calling of the other methods"""
     # reading and validating the settings
-    config_dict = read_settings_file(r"..\input\settings.yaml")
+    config_dict = read_settings_file(settings_file)
     validate_settings(config_dict)
     # reading and validating the urls
-    urls = read_url_list(r"..\input\url.yaml")
+    urls = read_url_list(url_file)
     validate_urls(urls)
     # saving urls into the config_dict
     config_dict["urls"] = urls
