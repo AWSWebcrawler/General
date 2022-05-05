@@ -1,6 +1,7 @@
 from io import StringIO
 from lxml import etree
 import logging
+from datetime import datetime
 
 """The item factory parses the passed html text and extracts the desired attributes. The attributes are then stored in a
 dictionary and returned."""
@@ -25,10 +26,9 @@ def create_item(html):
         "seller": get_seller(tree),
         "asin": get_asin(tree),
         "url": get_url(tree),
-        "timestamp": get_timestamp(tree),
-        "time": get_time(tree),
-        "date": get_date(tree),
-
+        "timestamp": get_timestamp(),
+        "date": get_date(),
+        "time": get_time(),
     }
 
     return dic
@@ -135,21 +135,42 @@ def get_selled_by_amazon(tree):
 
     return "-"
 
-def get_date(tree):
-    pass
+def get_date():
+    dt = datetime.now()
+    date = dt.strftime("%Y-%m-%d")
+    return date
 
 
-def get_time(tree):
-    pass
+def get_time():
+    dt = datetime.now()
+    time = dt.strftime("%H:%M:%S")
+    return time
 
 
-def get_timestamp(tree):
-    pass
+def get_timestamp():
+    dt = datetime.now()
+    ts = datetime.timestamp(dt)
+    return ts
 
 
 def get_url(tree):
-    pass
+    """select, validate and transform the url from the html
 
+    logging.debug("Calling the get_url function")
+
+    try:
+        urlTag = tree.find('.//input[@data-client-id = "primeAcquisition"]')
+        url = urlTag.attrib["data-success-redirect-url"]
+        return url
+
+        if urlTag == None:
+            logging.error("tag for item url not found in html tree")
+
+    except:
+        logging.error("Error by searching tag for url in the html tree")
+    return "-"
+    """
+    pass
 
 def get_asin(tree):
     try:
