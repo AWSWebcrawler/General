@@ -1,5 +1,5 @@
 #define settings here
-#could be done in a similar style like it is done in scrapy
+#config of the wanted client. only uncomment one client at a time
 #    client: safari
 #    client: iphone
 #    client: android
@@ -8,6 +8,7 @@
 #    client: firefox_windows
 #    client: firefox_macintosh
 client: linux
+# config of the logging
 logconfig:
   version: 1
   disable_existing_loggers: true
