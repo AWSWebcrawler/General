@@ -135,4 +135,6 @@ dmypy.json
 .idea/vcs.xml
 .idea/WebScraper.iml
 .idea/inspectionProfiles/profiles_settings.xml
+.idea/workspace.xml
 .idea/General.iml
+
