@@ -33,5 +33,8 @@ class test_config_reader(unittest.TestCase):
                          "Error in config_reader method read_url_list. Expected value for " \
                          "list at index 1 is https://tagesschau.de. ")
 
-
-
+    def test_settings_reader_aws(self):
+        test_read = config_reader.read_config('../input/url.yaml', '../input/settings.yaml')
+        self.assertEqual(test_read["aws_env"], False,
+                         "Error in config_reader method read_settings_file. Expected value for " \
+                         "aws_env is not 'False'. ")
