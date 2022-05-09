@@ -1,0 +1,37 @@
+#define settings here
+#config of the wanted client. only uncomment one client at a time
+#    client: safari
+#    client: iphone
+#    client: android
+#    client: chrome_windows
+#    client: chrome_macintosh
+#    client: firefox_windows
+#    client: firefox_macintosh
+client: linux
+# config of the logging
+logconfig:
+  version: 1
+  disable_existing_loggers: true
+  formatters:
+    standard:
+      format: " %(asctime)s: (%(filename)s): %(levelname)s: %(funcName)s Line: %(lineno)d - %(message)s"
+      datefmt: '%m/%d/%Y|%I:%M:%S|%p'
+    simple:
+      format: '%(asctime)s %(levelname)s:%(message)s'
+  handlers:
+    console_handler:
+      class: logging.StreamHandler
+      level: WARNING
+      formatter: simple
+
+    file_handler:
+      class: logging.FileHandler
+      level: DEBUG
+      filename: log/log.log
+      mode: a
+      formatter: standard
+
+  root:
+    handlers: [console_handler, file_handler]
+    level: DEBUG
+    propagate: true
