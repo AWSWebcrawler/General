@@ -2,13 +2,13 @@ import os
 import csv
 
 
-def store_item(item):
+def store_item(product_dict, settings_dict):
     """Method receives an item to be stored. It uses environment variables to determine
     whether storage in AWS S3 bucket or local in csv file is required"""
 
-    new_list = list(item.values())
+    new_list = list(product_dict.values())
     print(new_list)
-    filename = 'test4'
+    filename = settings_dict["client"]
     store_to_csv(new_list, filename)
 
 
@@ -26,7 +26,8 @@ def store_item(item):
 def store_to_csv(item, filename):
     """Method receives an item and a file name. It adds the attributes of the item in CSV format
      on a new line in the specified file. There is no return value."""
-    with open('..\\output\\' + filename + '.csv', 'a', newline='') as f:
+    #somehow the filepath is directed from the crawler
+    with open('.\\output\\' + filename + '.csv', 'a', newline='', encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(item)
         f.close()

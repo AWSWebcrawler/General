@@ -1,6 +1,8 @@
 from spider.spider import executeRequest
 from config_reader.config_reader import read_config
 from header_creater.create_header import generate_header
+from item_factory.item_factory import create_item
+from store import store
 from datetime import date
 import logging.config
 
@@ -31,7 +33,8 @@ def crawl(url_file, settings_file):
         # if the crawler is called from outside as module it returns the html string. This is used to test this script
         if __name__ != "__main__":
             return response
-        print(response)
+        product_dict = create_item(response, url)
+        store.store_item(product_dict, settings_dict)
 
 
 
