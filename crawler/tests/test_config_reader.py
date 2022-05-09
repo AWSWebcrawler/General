@@ -1,5 +1,7 @@
 import yaml
-from crawler.config_reader import config_reader
+
+import crawler.config_reader.config_reader
+from config_reader import config_reader
 import os
 
 
@@ -13,6 +15,11 @@ def test_settings_reader():
                                             "client is safari. "
     os.remove("test_settings.yaml")
 
+def test_settings_reader_aws():
+    test_read = config_reader.read_config('../input/settings.yaml', '../input/url.yaml')
+
+    assert test_read["aws_env"] == False, "Error in config_reader method read_settings_file. Expected value for " \
+                                            "aws_env is false. "
 
 def test_url_reader():
     data = ["https://amazon.de", "https://tagesschau.de"]
@@ -24,7 +31,8 @@ def test_url_reader():
                                             "list at index 1 is https://tagesschau.de. "
     os.remove("test_urls.yaml")
 
-
+#
 test_settings_reader()
+test_settings_reader_aws()
 test_url_reader()
 

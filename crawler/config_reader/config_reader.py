@@ -2,6 +2,7 @@ import yaml
 
 from yaml import SafeLoader
 import validators
+import os
 
 from exceptions import exceptions_config_reader
 
@@ -19,6 +20,12 @@ def read_config(url_file, settings_file) -> dict:
     validate_urls(urls)
     # saving urls into the config_dict
     config_dict["urls"] = urls
+
+    if os.environ.get('AWS_LAMBDA_FUNCTION_NAME') or os.environ.get('AWS_EXECUTION_ENV'):
+        aws_env = True
+    else:
+        aws_env = False
+    config_dict['aws_env'] = aws_env
     return config_dict
 
 
@@ -66,7 +73,5 @@ def validate_urls(urls: list):
         valid = validators.url(url)
         if not valid:
             raise exceptions_config_reader.MalformedUrlError("URL " + url + " not valid.")
-
-
 
 
