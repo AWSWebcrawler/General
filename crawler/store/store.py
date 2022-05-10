@@ -1,35 +1,33 @@
 import os
 import csv
+from os.path import exists
 
 
 def store_item(product_dict, settings_dict):
     """Method receives an item to be stored. It uses environment variables to determine
     whether storage in AWS S3 bucket or local in csv file is required"""
 
-    new_list = list(product_dict.values())
-    print(new_list)
     filename = settings_dict["client"]
-    store_to_csv(new_list, filename)
+    store_to_csv(product_dict, filename)
 
 
-# def is_aws_env():
-#     return os.environ.get('AWS_LAMBDA_FUNCTION_NAME') or os.environ.get('AWS_EXECUTION_ENV')
-#
-# def lambda_handler(event, context):
-#     if is_aws_env():
-#         store_to_S3('abc', 'abc')
-#     else:
-#         store_to_csv(item, filename)
-#
-#     if not is_aws_env():
-#         lambda_handler({}, {})
 def store_to_csv(item, filename):
-    """Method receives an item and a file name. It adds the attributes of the item in CSV format
-     on a new line in the specified file. There is no return value."""
-    #somehow the filepath is directed from the crawler
-    with open('.\\output\\' + filename + '.csv', 'a', newline='', encoding="utf-8") as f:
+    """Gets called by store_item and stores the item as a csv file"""
+    file_exists = exists('..\\output\\' + filename + '.csv')
+    with open('..\\output\\' + filename + '.csv', 'a', encoding='utf-8', newline='') as f:
+        # also need to configure the headers
         writer = csv.writer(f)
-        writer.writerow(item)
+        if file_exists:
+            pass
+        else:
+            writer.writerow(['timestamp', 'date', 'time', 'name', 'current_price', 'price_regular', 'prime',
+                             'discount_in_euros', 'percent discount', 'sold by amazon', 'seller', 'amazon_choice',
+                             'asin', 'url'])
+        writer.writerow(
+            [item['timestamp'], item['date'], item['time'], item['name'].replace('"', '').replace("'", ''),
+             item['current_price'], item['price_regular'],
+             item['prime'], item['discount_in_euros'], item['percent_discount'], item['sold_by_amazon'], item['seller']
+                , item['amazon_choice'], item['asin'], item['url']])
         f.close()
 
 
