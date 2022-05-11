@@ -39,5 +39,3 @@ class test_store(unittest.TestCase):
         # Need to append other rows/ lines if tested differently
         self.assertEqual(last_line.rstrip(),  expected_string.rstrip(), 'The last line does not match with expected result')
 
-
-
