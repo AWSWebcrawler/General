@@ -37,7 +37,7 @@ expected = [{
        ]
 
 
-class test_headers(unittest.TestCase):
+class TestHeaders(unittest.TestCase):
     def test_android(self):
         for client, result in zip(clients, expected):
             self.assertEqual(generate_header(client), result, "The result and the expected value were not compliant. Please refer to the difference log in the run terminal")

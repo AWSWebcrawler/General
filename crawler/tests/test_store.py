@@ -2,7 +2,8 @@ from store.store import store_to_csv
 import unittest
 import os
 
-class test_store(unittest.TestCase):
+
+class TestStore(unittest.TestCase):
     def test_store_to_csv(self):
         """Tests the store_to_csv method of the store module. Stores given productinformation into a file
          and checks if the written data matches the excepted values"""

@@ -4,7 +4,7 @@ import os
 import unittest
 
 
-class test_config_reader(unittest.TestCase):
+class TestConfigReader(unittest.TestCase):
 
     def test_settings_reader(self):
         data = {"client": "safari"}
