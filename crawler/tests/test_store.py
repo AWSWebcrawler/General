@@ -1,35 +1,43 @@
-# example test script
-import crawler.store.store as st
-import csv
+from store.store import store_to_csv
+import unittest
+import os
+
+class test_store(unittest.TestCase):
+    def test_store_to_csv(self):
+        """Tests the store_to_csv method of the store module. Stores given productinformation into a file
+         and checks if the written data matches the excepted values"""
+
+        sample_product = {'name': '"Echo Dot (4. Generation) | Smarter Lautsprecher mit Alexa" | Anthrazit',
+                       'discount_in_euros': 29.99,
+                       'price_regular': 59.99,
+                       'prime': False,
+                       'sold_by_amazon': True,
+                       'seller': 'amazon',
+                       'asin': 'B084DWG2VQ',
+                       'url': 'https://www.amazon.de/der-neue-echo-dot-4-generation-smarter-lautsprecher-mit-alexa-anthrazit/dp/B084DWG2VQ',
+                       'timestamp': '1652119616.320101',
+                       'date': '2022-05-09',
+                       'time': '20:06:56',
+                       'current_price': '12345',
+                       'percent_discount': '45%',
+                       'amazon_choice': False}
 
 
-def test_store_to_csv():
-    """ Möglicher Test:
-        - Anlegen eines Items
-        - aufrufen der Methode mit Item und tmp-Datei (im tests ordner)
-        - Einlesen der letzten Zeile der tmp-Datei
-        - Assertion ob Werte aus Datei mit den Werten der Items übereinstimmen"""
-    sample_dict = {"name": "python", "version": 3.9}
-    # sample_dict = {'name': '"Echo Dot (4. Generäääätion) | Smarter Lautsprecher mit Alexa" | Anthrazit', 'discount_in_euros': 29.99,
-    #         'price_regular': 59.99, 'prime': False, 'sold_by_amazon': True, 'seller': 'amazon', 'asin': 'B084DWG2VQ',
-    #         'url': 'https://www.amazon.de/der-neue-echo-dot-4-generation-smarter-lautsprecher-mit-alexa-anthrazit/dp/B084DWG2VQ',
-    #         'timestamp': '1652119616.320101', 'date': '2022-05-09', 'time': '20:06:56', 'current_price': '12345', 'percent_discount':'45%', 'amazon_choice': False}
-    # settings_dict = {'client':"linux"}
-    st.store_item(sample_dict)
-    filename = 'test4'
+        filepath = 'testCSV.csv'
+        store_to_csv(sample_product, filepath)
+        last_line = ""
+        with open(filepath, newline='', encoding='utf-8') as f:
+            last_line = f.readlines()[-1]
+            print(last_line)
 
-    with open('..\\output\\' + filename + '.csv', newline='') as f:
-        csvFile = csv.reader(f)
-        complete = ''
-        for line in csvFile:
-            complete = str(complete)+str(line)
-            print(complete)
+        f.close()
+        # removing the created file so there is no dead weight in the module directories
+        os.remove(filepath)
 
-    f.close()
-    #Need to append other rows/ lines if tested differently
-    assert complete == "['1', '2', '3']['1', '2', '3']['1', '2', '3']['1', '2', '3']", 'Map of csv does not math with expected result'
+        expected_string = "1652119616.320101,2022-05-09,20:06:56,Echo Dot (4. Generation) | Smarter Lautsprecher mit Alexa | Anthrazit,12345,59.99,False,29.99,45%,True,amazon,False,B084DWG2VQ,https://www.amazon.de/der-neue-echo-dot-4-generation-smarter-lautsprecher-mit-alexa-anthrazit/dp/B084DWG2VQ"
+
+        # Need to append other rows/ lines if tested differently
+        self.assertEqual(last_line.rstrip(),  expected_string.rstrip(), 'The last line does not match with expected result')
 
 
 
-
-test_store_to_csv()

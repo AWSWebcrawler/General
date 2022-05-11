@@ -1,4 +1,3 @@
-import os
 import csv
 from os.path import exists
 
@@ -7,14 +6,15 @@ def store_item(product_dict, settings_dict):
     """Method receives an item to be stored. It uses environment variables to determine
     whether storage in AWS S3 bucket or local in csv file is required"""
 
-    filename = settings_dict["client"]
-    store_to_csv(product_dict, filename)
+    filepath = '.\\output\\ ' + settings_dict["client"] + ".csv"
+    store_to_csv(product_dict, filepath)
 
 
-def store_to_csv(item, filename):
-    """Gets called by store_item and stores the item as a csv file"""
-    file_exists = exists('..\\output\\' + filename + '.csv')
-    with open('..\\output\\' + filename + '.csv', 'a', encoding='utf-8', newline='') as f:
+def store_to_csv(product, filepath):
+    """Gets called by store_item with a dictionary containing product information
+     and stores the product as a line in a csv file"""
+    file_exists = exists(filepath)
+    with open(filepath, 'a', encoding='utf-8', newline='') as f:
         # also need to configure the headers
         writer = csv.writer(f)
         if file_exists:
@@ -24,10 +24,10 @@ def store_to_csv(item, filename):
                              'discount_in_euros', 'percent discount', 'sold by amazon', 'seller', 'amazon_choice',
                              'asin', 'url'])
         writer.writerow(
-            [item['timestamp'], item['date'], item['time'], item['name'].replace('"', '').replace("'", ''),
-             item['current_price'], item['price_regular'],
-             item['prime'], item['discount_in_euros'], item['percent_discount'], item['sold_by_amazon'], item['seller']
-                , item['amazon_choice'], item['asin'], item['url']])
+            [product['timestamp'], product['date'], product['time'], product['name'].replace('"', '').replace("'", ''),
+             product['current_price'], product['price_regular'],
+             product['prime'], product['discount_in_euros'], product['percent_discount'], product['sold_by_amazon'], product['seller']
+                , product['amazon_choice'], product['asin'], product['url']])
         f.close()
 
 
