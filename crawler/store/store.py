@@ -1,13 +1,14 @@
 import csv
 from os.path import exists
 
-def store_item(item):
+def store_item(product_dict, settings_dict):
     """Method receives an item to be stored. It uses environment variables to determine
     whether storage in AWS S3 bucket or local in csv file is required"""
 
-    new_list = list(item.values())
-    #need to configure the name of the file accordingly to the item
-    filename = 'test4'
+
+    new_list = list(product_dict.values())
+    print(new_list)
+    filename = settings_dict["client"]
     store_to_csv(new_list, filename)
 
 """Method receives an item and a file name. It adds the attributes of the item in CSV format
@@ -24,10 +25,10 @@ def store_item(item):
 #     if not is_aws_env():
 #         lambda_handler({}, {})
 def store_to_csv(item, filename):
-    file_exists = exists('..\\output\\' + filename + '.csv')
-
-    with open('..\\output\\' + filename + '.csv', 'a', newline='') as f:
-        #also need to configure the headers
+    """Method receives an item and a file name. It adds the attributes of the item in CSV format
+     on a new line in the specified file. There is no return value."""
+    #somehow the filepath is directed from the crawler
+    with open('.\\output\\' + filename + '.csv', 'a', newline='', encoding="utf-8") as f:
         writer = csv.writer(f)
         if file_exists:
             pass
