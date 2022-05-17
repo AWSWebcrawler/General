@@ -23,7 +23,7 @@ def generate_header(settings) -> dict:
     return header_dict
 
 
-def get_user_agent(browser_type):
+def get_user_agent(browser_type: str):
     logging.info('started get_user_agent with client: ' + browser_type)
     agent_string = user_agents[browser_type][0]
     logging.info('end of get_user_header, with agent String: ' + agent_string)

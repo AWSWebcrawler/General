@@ -2,70 +2,71 @@
 #yaml syntax "---" at the start of document, "..." at the end of document
 #elements of a list start with a "-" and are on the same indent layer
 
----
-- https://www.amazon.de/der-neue-echo-dot-4-generation-smarter-lautsprecher-mit-alexa-anthrazit/dp/B084DWG2VQ
-- https://www.amazon.de/Zertifiziert-general%C3%BCberholt-Display-HD-Bildschirm-Anthrazit/dp/B07SNPP6P3
-- https://www.amazon.de/der-neue-echo-dot-4-generation-smarter-lautsprecher-mit-uhr-und-alexa-weiss/dp/B084J4KZ8J
-- https://www.amazon.de/Echo-Dot-3-Gen-Intelligenter-Lautsprecher-mit-Alexa-Anthrazit-Stoff/dp/B07PHPXHQS
-- https://www.amazon.de/fire-tv-stick-4k-max-mit-wi-fi-6-und-alexa-sprachfernbedienung-mit-tv-steuerungstasten/dp/B08MT4MY9J
-- https://www.amazon.de/fire-tv-cube%E2%94%82hands-free-mit-alexa-4k%E2%80%AFultra%E2%80%AFhd-streaming-mediaplayer/dp/B08XM9C8P6
-- https://www.amazon.de/Xbox-512GB-Fortnite-Rocket-League/dp/B09HSJP6FH
-- https://www.amazon.de/Xbox-Elite-Wireless-Controller-2/dp/B07SR4R8K1
-- https://www.amazon.de/Xbox-Wireless-Controller-Electric-Volt/dp/B091CK241X
-- https://www.amazon.de/Nintendo-Switch-OLED-Model-White/dp/B098TVDYZ3
-- https://www.amazon.de/Nintendo-Switch-Lite-Standard-grau/dp/B07V5JJHK4
-- https://www.amazon.de/CYBERPUNK-2077-DAY-Standard-Xbox/dp/B07SF1LZ9Q
-- https://www.amazon.de/ELDEN-RING-Standard-kostenloses-Upgrade/dp/B09R3DSJMS
-- https://www.amazon.de/Far-Cry-Limited-exklusiv-Amazon/dp/B08CP3ZCVS
-- https://www.amazon.de/Ubisoft-Assassins-Creed-Valhalla/dp/B0882MFP66
-- https://www.amazon.de/Electronic-Arts-FIFA-Xbox-One/dp/B098PN75WC
-- https://www.amazon.de/Apple-Watch-GPS-41mm-Aluminiumgeh%C3%A4use-Sportarmband/dp/B09HHDZFBW
-- https://www.amazon.de/Garmin-Venu-GPS-Fitness-Smartwatch-AMOLED-Touchdisplay-Gesundheitsfunktionen/dp/B091ZXYQXF
-- https://www.amazon.de/Samsung-Active2-Aluminium-Bluetooth-Schwarz/dp/B07VMH5VD2
-- https://www.amazon.de/Fossil-Herren-Smartwatch-Edelstahl-Edelstahlband-FTW4059/dp/B09B7RV2ZC
-- https://www.amazon.de/Fitbit-Sense-fortschrittliche-Gesundheits-Smartwatch-Hauttemperatur-Trends/dp/B08DFCWVZ4
-- https://www.amazon.de/Apple-AirPods-Pro-MagSafe-Ladecase/dp/B09JQZ5DYM
-- https://www.amazon.de/Apple-MME73ZM-A-AirPods-3-Generation/dp/B09JQQDLXF
-- https://www.amazon.de/Samsung-Galaxy-Buds-Pro-2-Wege-Lautsprecher/dp/B08QYRYH9J
-- https://www.amazon.de/Samsung-Bluetooth-Kopfh%C3%B6rer-Cancelling-komfortable-ausdauernder/dp/B08C5HYHYB
-- https://www.amazon.de/JBL-Live-Free-TWS-Ear-Kopfh%C3%B6rer-Schwarz/dp/B08FB2QG5Z
-- https://www.amazon.de/Bose-Vollkommen-Kabellose-Ear-Kopfh%C3%B6rer-Bluetooth-Kopfh%C3%B6rer-Schwarz/dp/B08CJCTG6Z
-- https://www.amazon.de/Apple-iPhone-13-128-GB-Mitternacht/dp/B09G9HWQYT
-- https://www.amazon.de/Apple-iPhone-13-Pro-128-GB/dp/B09G9GTBZD
-- https://www.amazon.de/Apple-iPhone-Pro-Max-128-GB/dp/B09G91T787
-- https://www.amazon.de/Samsung-Android-Smartphone-Herstellergarantie-Exklusiv/dp/B09QH3B75W
-- https://www.amazon.de/Samsung-Android-Smartphone-Herstellergarantie-Exklusiv/dp/B09QH2NJXC
-- https://www.amazon.de/Samsung-Crystal-GU55AU8079UXZG-AirSlim-Dynamic/dp/B092RCCCPZ
-- https://www.amazon.de/Samsung-GQ55Q70AAUXZG-Quantum-Prozessor-Xcelerator/dp/B092R7V7LB
-- https://www.amazon.de/Xiaomi-Android-Netflix-assistant-bluetooth/dp/B09HSNB7V8
-- https://www.amazon.de/grundig-vision-7-fire-tv-edition-55-vae-70-139-cm-55-zoll-fernseher-ultra-hd-alexa-sprachsteuerung-hdr-schwarz-modelljahr-2020/dp/B0862194DK
-- https://www.amazon.de/LG-50NANO869PA-NanoCell-Fernseher-Modelljahr/dp/B08VW6Z1BQ
-- https://www.amazon.de/LG-50UP75009LF-Fernseher-Smart-Modelljahr/dp/B08VD8TCY5
-- https://www.amazon.de/Philips-TV-58PUS8506-3-seitiges-Gaming-Mode/dp/B096Y89L23
-- https://www.amazon.de/Philips-TV-65PUS8506-3-seitiges-Gaming-Mode/dp/B096ZVYKCG
-- https://www.amazon.de/KabelDirekt-Kabel-kompatibel-Highspeed-Ethernet/dp/B004BEMD5Q
-- https://www.amazon.de/HDMI-2-1-Kabel-Dynamisches-kompatibles-rot/dp/B08CZL73QV
-- https://www.amazon.de/Philips-Hue-Lightstrip-steuerbar-kompatibel/dp/B088RX9CSZ
-- https://www.amazon.de/Bonve-Pet-Musikalische-APP-Steuerung-Fernbedienung/dp/B088WD6PXX
-- https://www.amazon.de/Nanoleaf-Essentials-Lightstrip-Starter-Kit/dp/B0949JC3SB
-- https://www.amazon.de/Nanoleaf-NL42-0002HX-9PK-Intelligente-Leuchtpaneele-mehrfarbig/dp/B08BYBP6LX
-- https://www.amazon.de/Philips-Hue-Millionen-steuerbar-kompatibel/dp/B09GSRB2L1
-- https://www.amazon.de/Lepro-Gl%C3%BChbirnen-Leuchtmittel-kompatibel-Warmwei%C3%9F/dp/B086D9L8XC
-- https://www.amazon.de/Holzkohle-Kugelgrill-Deckelscharnier-Deckelthermometer-klappbarer-Grillrost/dp/B00GHIRR5U
-- https://www.amazon.de/Weber-1221004-Compact-Holzkohle-Kugelgrill-Schwarz/dp/B00026CTZQ
-- https://www.amazon.de/Holzkohlegrill-Ascheschale-Thermometer-Einstellbare-Grillfl%C3%A4che/dp/B0987S7Q5C
-- https://www.amazon.de/Burnhard-Grillzange-hochwertigem-Akazienholz-Aufh%C3%A4nge-%C3%96sen/dp/B0792LNGNK
-- https://www.amazon.de/Weber-Precision-Premium-Grillzange-Schwarz/dp/B08M45NMN4
-- https://www.amazon.de/R%C3%B6sle-12374-Grillzange-gebogen-L%C3%A4nge/dp/B00008WV24
-- https://www.amazon.de/FLAMMBURO-Paraffinbasis-Grillanz%C3%BCnder-Kaminanz%C3%BCnder-Paraffinw%C3%BCrfel/dp/B08YCWDLTQ
-- https://www.amazon.de/nat%C3%BCrliche-Holzfeuer-Anz%C3%BCnder-umweltfreundlich-Barbecue-Grills-R%C3%A4ucherger%C3%A4te/dp/B07FF436N5
-- https://www.amazon.de/Gillette-Venus-Comfortglide-Damenrasierer-Rasierklingen/dp/B08WKS1MTL
-- https://www.amazon.de/Gillette-Venus-Rasierer-Damenrasierer-Rasierklingen/dp/B08WKS1MTG
-- https://www.amazon.de/Amazon-Marke-Solimo-Herrenrasierer-5-fach-Klinge-Ersatzklingen/dp/B07VCDPBST
-- https://www.amazon.de/Gillette-Rasierklingen-Anti-Irritations-Klingen-gr%C3%BCndliche-langanhaltende/dp/B08W568DZR
-- https://www.amazon.de/Gillette-Rasierklingen-entwickelt-Anti-Irritations-Klingen-Rasuren/dp/B08W56KDZ1
-- https://www.amazon.de/Gillette-Rasierklingen-Damenrasierer-langlebige-besonders/dp/B08W55CKZ6
-- https://www.amazon.de/Gillette-Venus-Rasierklingen-Schutzkissen-aktuelle/dp/B08WQQVMD3
-- https://www.amazon.de/ATG-Schutzhandschuhe-MaxiFlex-Ultimate-Gr%C3%B6%C3%9Fe/dp/B07B8P7CP1
-...
+# ---
+- urls
+  - https://www.amazon.de/der-neue-echo-dot-4-generation-smarter-lautsprecher-mit-alexa-anthrazit/dp/B084DWG2VQ
+  - https://www.amazon.de/Zertifiziert-general%C3%BCberholt-Display-HD-Bildschirm-Anthrazit/dp/B07SNPP6P3
+  - https://www.amazon.de/der-neue-echo-dot-4-generation-smarter-lautsprecher-mit-uhr-und-alexa-weiss/dp/B084J4KZ8J
+  - https://www.amazon.de/Echo-Dot-3-Gen-Intelligenter-Lautsprecher-mit-Alexa-Anthrazit-Stoff/dp/B07PHPXHQS
+  - https://www.amazon.de/fire-tv-stick-4k-max-mit-wi-fi-6-und-alexa-sprachfernbedienung-mit-tv-steuerungstasten/dp/B08MT4MY9J
+  - https://www.amazon.de/fire-tv-cube%E2%94%82hands-free-mit-alexa-4k%E2%80%AFultra%E2%80%AFhd-streaming-mediaplayer/dp/B08XM9C8P6
+  - https://www.amazon.de/Xbox-512GB-Fortnite-Rocket-League/dp/B09HSJP6FH
+  - https://www.amazon.de/Xbox-Elite-Wireless-Controller-2/dp/B07SR4R8K1
+  - https://www.amazon.de/Xbox-Wireless-Controller-Electric-Volt/dp/B091CK241X
+  - https://www.amazon.de/Nintendo-Switch-OLED-Model-White/dp/B098TVDYZ3
+  - https://www.amazon.de/Nintendo-Switch-Lite-Standard-grau/dp/B07V5JJHK4
+  - https://www.amazon.de/CYBERPUNK-2077-DAY-Standard-Xbox/dp/B07SF1LZ9Q
+  - https://www.amazon.de/ELDEN-RING-Standard-kostenloses-Upgrade/dp/B09R3DSJMS
+  - https://www.amazon.de/Far-Cry-Limited-exklusiv-Amazon/dp/B08CP3ZCVS
+  - https://www.amazon.de/Ubisoft-Assassins-Creed-Valhalla/dp/B0882MFP66
+  - https://www.amazon.de/Electronic-Arts-FIFA-Xbox-One/dp/B098PN75WC
+  - https://www.amazon.de/Apple-Watch-GPS-41mm-Aluminiumgeh%C3%A4use-Sportarmband/dp/B09HHDZFBW
+  - https://www.amazon.de/Garmin-Venu-GPS-Fitness-Smartwatch-AMOLED-Touchdisplay-Gesundheitsfunktionen/dp/B091ZXYQXF
+  - https://www.amazon.de/Samsung-Active2-Aluminium-Bluetooth-Schwarz/dp/B07VMH5VD2
+  - https://www.amazon.de/Fossil-Herren-Smartwatch-Edelstahl-Edelstahlband-FTW4059/dp/B09B7RV2ZC
+  - https://www.amazon.de/Fitbit-Sense-fortschrittliche-Gesundheits-Smartwatch-Hauttemperatur-Trends/dp/B08DFCWVZ4
+  - https://www.amazon.de/Apple-AirPods-Pro-MagSafe-Ladecase/dp/B09JQZ5DYM
+  - https://www.amazon.de/Apple-MME73ZM-A-AirPods-3-Generation/dp/B09JQQDLXF
+  - https://www.amazon.de/Samsung-Galaxy-Buds-Pro-2-Wege-Lautsprecher/dp/B08QYRYH9J
+  - https://www.amazon.de/Samsung-Bluetooth-Kopfh%C3%B6rer-Cancelling-komfortable-ausdauernder/dp/B08C5HYHYB
+  - https://www.amazon.de/JBL-Live-Free-TWS-Ear-Kopfh%C3%B6rer-Schwarz/dp/B08FB2QG5Z
+  - https://www.amazon.de/Bose-Vollkommen-Kabellose-Ear-Kopfh%C3%B6rer-Bluetooth-Kopfh%C3%B6rer-Schwarz/dp/B08CJCTG6Z
+  - https://www.amazon.de/Apple-iPhone-13-128-GB-Mitternacht/dp/B09G9HWQYT
+  - https://www.amazon.de/Apple-iPhone-13-Pro-128-GB/dp/B09G9GTBZD
+  - https://www.amazon.de/Apple-iPhone-Pro-Max-128-GB/dp/B09G91T787
+  - https://www.amazon.de/Samsung-Android-Smartphone-Herstellergarantie-Exklusiv/dp/B09QH3B75W
+  - https://www.amazon.de/Samsung-Android-Smartphone-Herstellergarantie-Exklusiv/dp/B09QH2NJXC
+  - https://www.amazon.de/Samsung-Crystal-GU55AU8079UXZG-AirSlim-Dynamic/dp/B092RCCCPZ
+  - https://www.amazon.de/Samsung-GQ55Q70AAUXZG-Quantum-Prozessor-Xcelerator/dp/B092R7V7LB
+  - https://www.amazon.de/Xiaomi-Android-Netflix-assistant-bluetooth/dp/B09HSNB7V8
+  - https://www.amazon.de/grundig-vision-7-fire-tv-edition-55-vae-70-139-cm-55-zoll-fernseher-ultra-hd-alexa-sprachsteuerung-hdr-schwarz-modelljahr-2020/dp/B0862194DK
+  - https://www.amazon.de/LG-50NANO869PA-NanoCell-Fernseher-Modelljahr/dp/B08VW6Z1BQ
+  - https://www.amazon.de/LG-50UP75009LF-Fernseher-Smart-Modelljahr/dp/B08VD8TCY5
+  - https://www.amazon.de/Philips-TV-58PUS8506-3-seitiges-Gaming-Mode/dp/B096Y89L23
+  - https://www.amazon.de/Philips-TV-65PUS8506-3-seitiges-Gaming-Mode/dp/B096ZVYKCG
+  - https://www.amazon.de/KabelDirekt-Kabel-kompatibel-Highspeed-Ethernet/dp/B004BEMD5Q
+  - https://www.amazon.de/HDMI-2-1-Kabel-Dynamisches-kompatibles-rot/dp/B08CZL73QV
+  - https://www.amazon.de/Philips-Hue-Lightstrip-steuerbar-kompatibel/dp/B088RX9CSZ
+  - https://www.amazon.de/Bonve-Pet-Musikalische-APP-Steuerung-Fernbedienung/dp/B088WD6PXX
+  - https://www.amazon.de/Nanoleaf-Essentials-Lightstrip-Starter-Kit/dp/B0949JC3SB
+  - https://www.amazon.de/Nanoleaf-NL42-0002HX-9PK-Intelligente-Leuchtpaneele-mehrfarbig/dp/B08BYBP6LX
+  - https://www.amazon.de/Philips-Hue-Millionen-steuerbar-kompatibel/dp/B09GSRB2L1
+  - https://www.amazon.de/Lepro-Gl%C3%BChbirnen-Leuchtmittel-kompatibel-Warmwei%C3%9F/dp/B086D9L8XC
+  - https://www.amazon.de/Holzkohle-Kugelgrill-Deckelscharnier-Deckelthermometer-klappbarer-Grillrost/dp/B00GHIRR5U
+  - https://www.amazon.de/Weber-1221004-Compact-Holzkohle-Kugelgrill-Schwarz/dp/B00026CTZQ
+  - https://www.amazon.de/Holzkohlegrill-Ascheschale-Thermometer-Einstellbare-Grillfl%C3%A4che/dp/B0987S7Q5C
+  - https://www.amazon.de/Burnhard-Grillzange-hochwertigem-Akazienholz-Aufh%C3%A4nge-%C3%96sen/dp/B0792LNGNK
+  - https://www.amazon.de/Weber-Precision-Premium-Grillzange-Schwarz/dp/B08M45NMN4
+  - https://www.amazon.de/R%C3%B6sle-12374-Grillzange-gebogen-L%C3%A4nge/dp/B00008WV24
+  - https://www.amazon.de/FLAMMBURO-Paraffinbasis-Grillanz%C3%BCnder-Kaminanz%C3%BCnder-Paraffinw%C3%BCrfel/dp/B08YCWDLTQ
+  - https://www.amazon.de/nat%C3%BCrliche-Holzfeuer-Anz%C3%BCnder-umweltfreundlich-Barbecue-Grills-R%C3%A4ucherger%C3%A4te/dp/B07FF436N5
+  - https://www.amazon.de/Gillette-Venus-Comfortglide-Damenrasierer-Rasierklingen/dp/B08WKS1MTL
+  - https://www.amazon.de/Gillette-Venus-Rasierer-Damenrasierer-Rasierklingen/dp/B08WKS1MTG
+  - https://www.amazon.de/Amazon-Marke-Solimo-Herrenrasierer-5-fach-Klinge-Ersatzklingen/dp/B07VCDPBST
+  - https://www.amazon.de/Gillette-Rasierklingen-Anti-Irritations-Klingen-gr%C3%BCndliche-langanhaltende/dp/B08W568DZR
+  - https://www.amazon.de/Gillette-Rasierklingen-entwickelt-Anti-Irritations-Klingen-Rasuren/dp/B08W56KDZ1
+  - https://www.amazon.de/Gillette-Rasierklingen-Damenrasierer-langlebige-besonders/dp/B08W55CKZ6
+  - https://www.amazon.de/Gillette-Venus-Rasierklingen-Schutzkissen-aktuelle/dp/B08WQQVMD3
+  - https://www.amazon.de/ATG-Schutzhandschuhe-MaxiFlex-Ultimate-Gr%C3%B6%C3%9Fe/dp/B07B8P7CP1
+# ...
 

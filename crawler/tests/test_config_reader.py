@@ -8,6 +8,7 @@ class TestConfigReader(unittest.TestCase):
 
     def test_settings_reader(self):
         data = {"client": "safari"}
+        # TODO use with statement
         file = open("test_settings.yaml", "w")
         yaml.dump(data, file)
         file.close()
