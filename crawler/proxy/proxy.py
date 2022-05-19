@@ -5,8 +5,9 @@ import logging
 from random import choice
 import time
 import requests
+from crawler.exceptions.exceptions_config_reader import ProxyNotWorkingError
 
-proxy_list = None
+PROXY_LIST = None
 proxy_urls = {
     "socks4": "https://raw.githubusercontent.com/saschazesiger/Free-Proxies/94732c66982abfc273cfb41056efe7a062b78d01"
               "/proxies/socks4.txt",
@@ -44,8 +45,8 @@ def call_url(url, header, proxy) -> dict:
 
         logging.error("Timeout")
 
-    except:
-        logging.error("Proxy not working")
+    except ProxyNotWorkingError as exception:
+        raise ValueError("Proxy is not working") from exception
 
     remove_proxy_from_list(proxy)
     return call_url(url, header, get_random_proxy())
@@ -66,21 +67,21 @@ def get_proxies():
     socks4_proxies = ["socks4://" + proxy for proxy in socks4_proxies]
     socks5_proxies = ["socks5h://" + proxy for proxy in socks5_proxies]
 
-    global proxy_list
-    proxy_list = http_proxies
-    proxy_list.extend(socks4_proxies)
-    proxy_list.extend(socks5_proxies)
+    global PROXY_LIST
+    PROXY_LIST = http_proxies
+    PROXY_LIST.extend(socks4_proxies)
+    PROXY_LIST.extend(socks5_proxies)
 
 
 def get_random_proxy() -> dict:
-    """Checks if proxy_list is already filled. Then returns a random proxy of proxy_list"""
+    """Checks if PROXY_LIST is already filled. Then returns a random proxy of PROXY_LIST"""
 
     logging.debug("Calling function test_proxy")
 
-    if proxy_list is None:
+    if PROXY_LIST is None:
         get_proxies()
 
-    proxy_ip = choice(proxy_list)
+    proxy_ip = choice(PROXY_LIST)
 
     proxy = {
         "http": proxy_ip
@@ -89,7 +90,7 @@ def get_random_proxy() -> dict:
 
 
 def remove_proxy_from_list(proxy):
-    """Removes the given proxy from proxy_list"""
+    """Removes the given proxy from PROXY_LIST"""
     proxy = proxy['http']
-    if proxy_list is not None and proxy in proxy_list:
-        proxy_list.remove(proxy)
+    if PROXY_LIST is not None and proxy in PROXY_LIST:
+        PROXY_LIST.remove(proxy)

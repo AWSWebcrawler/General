@@ -1,3 +1,4 @@
+"""Class to test the proxy module."""
 import time
 import yaml
 from yaml import SafeLoader
@@ -18,20 +19,20 @@ with open('..\\input\\url.yaml', 'r', encoding="utf-8") as file:
     url_list = yaml.load(file, Loader=SafeLoader)
 
 times = []
-proxy = None
+PROXY = None
 start_time = time.time()
 for url in url_list:
 
-    html_with_proxy = get_html(url, header_dict, proxy)
+    html_with_proxy = get_html(url, header_dict, PROXY)
     print(html_with_proxy["proxy"])
     times.append(html_with_proxy["time"])
-    proxy = html_with_proxy["proxy"]
+    PROXY = html_with_proxy["proxy"]
     if float(html_with_proxy['time']) > 4.0:
-        proxy = None
+        PROXY = None
 
 print(time.time() - start_time + " sec to complete")
-average_time_for_request = 0.0
+AVERAGE_TIME_FOR_REQUEST = 0.0
 for time in times:
-    average_time_for_request += float(time)
-average_time_for_request = average_time_for_request/len(times)
-print(average_time_for_request)
+    AVERAGE_TIME_FOR_REQUEST += float(time)
+AVERAGE_TIME_FOR_REQUEST = AVERAGE_TIME_FOR_REQUEST / len(times)
+print(AVERAGE_TIME_FOR_REQUEST)
