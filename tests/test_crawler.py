@@ -1,6 +1,6 @@
 import yaml
 import os
-from crawler.crawler import crawl
+from src.crawler.crawler import crawl
 import unittest
 
 
@@ -42,7 +42,7 @@ class TestCrawler(unittest.TestCase):
                                 "formatter": "standard",
                                 "mode": "a",
                                 "level": "DEBUG",
-                                "filename": "log/log.log"
+                                "filename": "logging/logging.logging"
                             }
                         }
                     }
@@ -58,7 +58,7 @@ class TestCrawler(unittest.TestCase):
 
         # start of the actual test
 
-        html_response = crawl(r"testURL.yaml", r"testsettings.yaml")
+        html_response = crawl("testURL.yaml", "testsettings.yaml")
         html_response = "".join(char for char in html_response if char.isalnum())
         os.remove("testsettings.yaml")
         os.remove("testURL.yaml")
