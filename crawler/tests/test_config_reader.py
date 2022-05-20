@@ -1,5 +1,7 @@
 import yaml
-from crawler.config_reader import config_reader
+
+import crawler.config_reader.config_reader
+from config_reader import config_reader
 import os
 import unittest
 
@@ -32,6 +34,7 @@ class TestConfigReader(unittest.TestCase):
         self.assertEqual(test_read[1], "https://tagesschau.de",
                          "Error in config_reader method read_url_list. Expected value for " \
                          "list at index 1 is https://tagesschau.de. ")
+
 
     def test_settings_reader_aws(self):
         test_read = config_reader.read_config('../input/url.yaml', '../input/settings.yaml')
