@@ -1,4 +1,6 @@
-from src.crawler.item_factory import item_factory
+import os
+
+from item_factory import item_factory
 
 import unittest
 
@@ -9,7 +11,8 @@ class TestItemFactory(unittest.TestCase):
         # url von der die Testseite im test_item_factory_testfile.html stammt: "https://www.amazon.de/dp/B084DWG2VQ?ref_=cm_sw_r_cp_ud_dp_93J9GCGXC997VW26Y0ES
         url = "https://www.amazon.de/dp/B084DWG2VQ?ref_=cm_sw_r_cp_ud_dp_93J9GCGXC997VW26Y0ES"
         html = ""
-        with open('test_item_factory_testfile.html', 'r', encoding='utf8') as file:
+        print(os.getcwd())
+        with open('../test_item_factory_testfile.html', 'r', encoding='utf8') as file:
             html = file.read()
 
         product = item_factory.create_item(html, url)

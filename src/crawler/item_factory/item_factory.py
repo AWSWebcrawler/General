@@ -187,7 +187,7 @@ def get_asin(tree):
     """select, validate and transform the item asin from the given html-tree"""
     logging.debug("Calling the get_asin function")
 
-    asin_tag = tree.find('.//config[@id = "ASIN"]')
+    asin_tag = tree.find('.//input[@id = "ASIN"]')
 
     if asin_tag is None:
         logging.error("tag for item asin not found in html tree")
