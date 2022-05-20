@@ -1,4 +1,4 @@
-from crawler.header_creater.header_creater import generate_header
+from src.crawler.header.header_creater import generate_header
 import unittest
 
 clients = [{'client': "android"}, {'client': "safari"}, {'client': "chrome_windows"}, {'client': "chrome_macintosh"},
@@ -40,4 +40,4 @@ expected = [{
 class TestHeaders(unittest.TestCase):
     def test_android(self):
         for client, result in zip(clients, expected):
-            self.assertEqual(generate_header(client), result, "The result and the expected value were not compliant. Please refer to the difference log in the run terminal")
+            self.assertEqual(generate_header(client), result, "The result and the expected value were not compliant. Please refer to the difference logging in the run terminal")

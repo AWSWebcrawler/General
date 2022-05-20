@@ -1,6 +1,6 @@
 import yaml
 import os
-from crawler.crawler import crawl
+from src.crawler.crawler import crawl
 import unittest
 
 
@@ -42,7 +42,7 @@ class TestCrawler(unittest.TestCase):
                                 "formatter": "standard",
                                 "mode": "a",
                                 "level": "DEBUG",
-                                "filename": "log/log.log"
+                                "filename": "logging/logging.logging"
                             }
                         }
                     }

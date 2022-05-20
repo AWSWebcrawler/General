@@ -1,11 +1,11 @@
-from store.store import store_to_csv
+from persistence.store import store_to_csv
 import unittest
 import os
 
 
 class TestStore(unittest.TestCase):
     def test_store_to_csv(self):
-        """Tests the store_to_csv method of the store module. Stores given productinformation into a file
+        """Tests the store_to_csv method of the persistence module. Stores given productinformation into a file
          and checks if the written data matches the excepted values"""
 
         sample_product = {'name': '"Echo Dot (4. Generation) | Smarter Lautsprecher mit Alexa" | Anthrazit',

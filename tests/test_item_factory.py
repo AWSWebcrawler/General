@@ -1,4 +1,4 @@
-from crawler.item_factory import item_factory
+from src.crawler.item_factory import item_factory
 
 import unittest
 

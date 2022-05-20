@@ -27,7 +27,7 @@ logconfig:
     file_handler:
       class: logging.FileHandler
       level: DEBUG
-      filename: log/log.log
+      filename: logging/logging.logging
       mode: a
       formatter: standard
 

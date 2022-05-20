@@ -187,7 +187,7 @@ def get_asin(tree):
     """select, validate and transform the item asin from the given html-tree"""
     logging.debug("Calling the get_asin function")
 
-    asin_tag = tree.find('.//input[@id = "ASIN"]')
+    asin_tag = tree.find('.//config[@id = "ASIN"]')
 
     if asin_tag is None:
         logging.error("tag for item asin not found in html tree")
@@ -272,7 +272,7 @@ def get_discount_in_euros(tree):
                 discount = discount_tag.text
                 discount = re.sub('\D', ' ', discount)
                 discount = discount.strip()
-                discount = re.sub(' ', '.', discount)
+                discount = re.sub(' ', '', discount)
 
                 if len(discount) and discount != "." and discount is not None:
                     logging.debug("item discount_in_euros found")
@@ -321,7 +321,7 @@ def get_percent_discount(tree):
                 discount = discount_tag.tail
                 discount = re.sub('\D', ' ', discount)
                 discount = discount.strip()
-                discount = re.sub(' ', '.', discount)
+                discount = re.sub(' ', '', discount)
 
                 if len(discount) and discount != "." and discount is not None:
                     logging.debug("item percent_discount found")
@@ -408,7 +408,7 @@ def get_regular_price(tree):
                 current_price = current_price_tag.text
                 current_price = re.sub('\D', ' ', current_price)
                 current_price = current_price.strip()
-                current_price = re.sub(' ', '.', current_price)
+                current_price = re.sub(' ', '', current_price)
 
                 if len(current_price) and current_price != "," and current_price is not None:
                     logging.debug("item regular_price found")

@@ -1,21 +1,21 @@
 from spider.spider import executeRequest
-from config_reader.config_reader import read_config
-from header_creater.create_header import generate_header
+from config.config_reader import read_config
+from header.header_creater import generate_header
 from item_factory.item_factory import create_item
-from store import store
+from persistence import store
 from datetime import date
 import logging.config
 
 """Control of the program logic:
-    - Reading the config files by calling the config_reader
+    - Reading the config files by calling the config
     - Iterate over the defined scraping URLs in a loop
     - Call spider module to get HTML-text from the response
     - Call item_factory to extract individual tags
-    - Calling the store module to save item"""
+    - Calling the persistence module to save item"""
 
 
 def main():
-    crawl('.\\input\\url.yaml', '.\\input\\settings.yaml')
+    crawl('../../config/url.yaml', '../../config/settings.yaml')
 
 
 def crawl(url_file, settings_file):
@@ -40,7 +40,7 @@ def crawl(url_file, settings_file):
 
 def set_up_logging(settings_dict):
     log_config = settings_dict["logconfig"]
-    log_config['handlers']['file_handler']['filename'] = 'log/' + str(date.today()) + '.log'
+    log_config['handlers']['file_handler']['filename'] = 'logging/' + str(date.today()) + '.logging'
     logging.config.dictConfig(log_config)
 
 
