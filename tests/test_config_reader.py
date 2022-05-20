@@ -1,6 +1,6 @@
 import yaml
 
-from config_reader import config_reader
+from config import config_reader
 import os
 import unittest
 
@@ -12,7 +12,7 @@ class TestConfigReader(unittest.TestCase):
         file = open("test_settings.yaml", "w")
         yaml.dump(data, file)
         file.close()
-        test_read = config_reader.read_settings_file("./test_settings.yaml")
+        test_read = config_reader.read_settings_file("test_settings.yaml")
         os.remove("test_settings.yaml")
         # assert test_read["client"] == "safari", "Error in config method read_settings_file. Expected value for " \
         #                                         "client is safari. "
@@ -36,7 +36,7 @@ class TestConfigReader(unittest.TestCase):
 
 
     def test_settings_reader_aws(self):
-        test_read = config_reader.read_config('../config/url.yaml', '../config/settings.yaml')
-        self.assertEqual(test_read["aws_env"], False,
+        test_read = config_reader.is_aws_environment()
+        self.assertEqual(test_read, False,
                          "Error in config method read_settings_file. Expected value for " \
                          "aws_env is not 'False'. ")

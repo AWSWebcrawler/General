@@ -1,5 +1,5 @@
 from spider.spider import executeRequest
-from config.config_reader import read_config
+from config.config_reader import read_config_files
 from header.header_creater import generate_header
 from item_factory.item_factory import create_item
 from persistence import store
@@ -20,7 +20,7 @@ def main():
 
 def crawl(url_file, settings_file):
     # reading the url and settings file
-    settings_dict = read_config(url_file, settings_file)
+    settings_dict = read_config_files(url_file, settings_file)
 
     #loggin not set up for testing
     if __name__ == "__main__":
