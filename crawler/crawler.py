@@ -1,9 +1,9 @@
 """Control of the program logic:
-    - Reading the config files by calling the config_reader
+    - Reading the config files by calling the config
     - Iterate over the defined scraping URLs in a loop
     - Call spider module to get HTML-text from the response
     - Call item_factory to extract individual tags
-    - Calling the store module to save item"""
+    - Calling the persistence module to save item"""
 
 from datetime import date
 import logging.config
@@ -14,12 +14,12 @@ from item_factory.item_factory import create_item
 from store import store
 
 def main():
-    crawl('.\\input\\url.yaml', '.\\input\\settings.yaml')
+    crawl('../config/url.yaml', '../config/settings.yaml')
 
 
 def crawl(url_file, settings_file):
     # reading the url and settings file
-    settings_dict = read_config(url_file, settings_file)
+    settings_dict = read_config_files(url_file, settings_file)
 
     #loggin not set up for testing
     if __name__ == "__main__":
@@ -43,7 +43,7 @@ def crawl(url_file, settings_file):
 
 def set_up_logging(settings_dict):
     log_config = settings_dict["logconfig"]
-    log_config['handlers']['file_handler']['filename'] = 'log/' + str(date.today()) + '.log'
+    log_config['handlers']['file_handler']['filename'] = 'logging/' + str(date.today()) + '.logging'
     logging.config.dictConfig(log_config)
 
 
