@@ -5,7 +5,7 @@ import logging
 from random import choice
 import time
 import requests
-from crawler.exceptions.exceptions_config_reader import ProxyNotWorkingError
+from exceptions.exceptions_config_reader import ProxyNotWorkingError
 
 PROXY_LIST = None
 proxy_urls = {
@@ -45,8 +45,8 @@ def call_url(url, header, proxy) -> dict:
 
         logging.error("Timeout")
 
-    except ProxyNotWorkingError as exception:
-        raise ValueError("Proxy is not working") from exception
+    except Exception:
+        raise ProxyNotWorkingError("Proxy is not working")
 
     remove_proxy_from_list(proxy)
     return call_url(url, header, get_random_proxy())
