@@ -1,6 +1,6 @@
 import yaml
 import os
-from src.crawler.crawler import crawl
+from crawler import crawl
 import unittest
 
 

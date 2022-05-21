@@ -15,7 +15,7 @@ import logging.config
 
 
 def main():
-    crawl('../../config/url.yaml', '../../config/settings.yaml')
+    crawl('../config/url.yaml', '../config/settings.yaml')
 
 
 def crawl(url_file, settings_file):

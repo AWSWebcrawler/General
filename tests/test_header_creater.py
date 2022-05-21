@@ -1,4 +1,4 @@
-from src.crawler.header.header_creater import generate_header
+from header.header_creater import generate_header
 import unittest
 
 clients = [{'client': "android"}, {'client': "safari"}, {'client': "chrome_windows"}, {'client': "chrome_macintosh"},

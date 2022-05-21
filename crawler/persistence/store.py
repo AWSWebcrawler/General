@@ -5,7 +5,7 @@ from os.path import exists
 def store_item(product_dict, settings_dict):
     """Method receives an item to be stored. It uses environment variables to determine
     whether storage in AWS S3 bucket or local in csv file is required"""
-    filepath = '../../output/' + settings_dict["client"] + ".csv"
+    filepath = '../output/' + settings_dict["client"] + ".csv"
     store_to_csv(product_dict, filepath)
 
 
