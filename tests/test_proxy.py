@@ -2,7 +2,7 @@
 import time
 import yaml
 from yaml import SafeLoader
-from crawler.proxy.proxy import get_html
+from proxy.proxy import get_html
 
 
 header_dict = {
@@ -15,7 +15,7 @@ header_dict = {
     "viewport-width": "1080",
     'Connection': 'keep-alive'}
 
-with open('..\\input\\url.yaml', 'r', encoding="utf-8") as file:
+with open('../crawler/input/url.yaml', 'r', encoding="utf-8") as file:
     url_list = yaml.load(file, Loader=SafeLoader)
 
 times = []
