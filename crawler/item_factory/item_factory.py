@@ -1,8 +1,9 @@
-from io import StringIO
-from lxml import etree
 import logging
-from datetime import datetime
 import re
+from datetime import datetime
+from io import StringIO
+
+from lxml import etree
 
 """The item factory parses the passed html text and extracts the desired attributes. The attributes are then stored in a
 dictionary and returned."""
