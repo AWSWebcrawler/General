@@ -1,12 +1,12 @@
+"""The item factory parses the passed html text and extracts the desired attributes. The attributes are then stored in a
+dictionary and returned."""
+
 import logging
 import re
 from datetime import datetime
 from io import StringIO
 
 from lxml import etree
-
-"""The item factory parses the passed html text and extracts the desired attributes. The attributes are then stored in a
-dictionary and returned."""
 
 
 def create_item(html: str, url: str) -> dict:
@@ -40,7 +40,7 @@ def create_item(html: str, url: str) -> dict:
     return dic
 
 
-"""The individual methods receive the html text. Select the correct values using the appropriate html tags. 
+"""The individual methods receive the html text. Select the correct values using the appropriate html tags.
 Validate whether the values make any sense at all and, if necessary, 
 transform the values to get the desired return value."""
 
@@ -94,7 +94,7 @@ def _get_current_price(tree: etree) -> float:
         if price.strip() and price is not None:
             logging.debug("item current_price found")
 
-            if re.match("[0-9]+\.[0-9][0-9]", price):
+            if re.match(r"[0-9]+\.[0-9][0-9]", price):
                 return float(price)
 
             logging.warning("Item current_price has a wrong format")
@@ -154,8 +154,8 @@ def _get_timestamp(datetime_now: datetime) -> float:
     """Returns the unix timestamp of the given datetime"""
     logging.debug("Calling the get_timestamp function")
 
-    ts = datetime.timestamp(datetime_now)
-    return ts
+    timestamp = datetime.timestamp(datetime_now)
+    return timestamp
 
 
 def _get_url(url: str) -> str:
@@ -260,9 +260,10 @@ def _get_discount_in_euros_from_table(tree: etree) -> float:
         return None
 
     try:
-        # Replacing non numeric characters with blanks -> Stripping all leading and following withespaces -> replacing the blank in the middle of the number with a dot
+        # Replacing non numeric characters with blanks -> Stripping all leading and following withespaces
+        # -> replacing the blank in the middle of the number with a dot
         discount = discount_tag.text
-        discount = re.sub("\D", " ", discount)
+        discount = re.sub(r"\D", " ", discount)
         discount = discount.strip()
         discount = re.sub(" ", "", discount)
 
@@ -273,6 +274,7 @@ def _get_discount_in_euros_from_table(tree: etree) -> float:
         pass
 
     return None
+
 
 def _calculate_discount_in_euros(tree: etree) -> float:
     """Calculating item discount_in_euros using above implemented methods"""
@@ -298,6 +300,7 @@ def _calculate_discount_in_euros(tree: etree) -> float:
 
     return None
 
+
 def _get_percent_discount(tree: etree) -> float:
     """Calling methods to select, validate and transform the item discount_in_euros from the given html-tree"""
     logging.debug("Calling the get_discount function")
@@ -313,6 +316,7 @@ def _get_percent_discount(tree: etree) -> float:
         percent_discount = _calculate_percent_discount(tree)
 
     return percent_discount
+
 
 def _get_percent_discount_from_table(tree: etree) -> float:
     """select, validate and transform the item percent_discount from the given html-tree"""
@@ -330,9 +334,10 @@ def _get_percent_discount_from_table(tree: etree) -> float:
         return None
 
     try:
-        # Replacing non numeric characters with blanks -> Stripping all leading and following withespaces -> replacing the blank in the middle of the number with a dot
+        # Replacing non numeric characters with blanks -> Stripping all leading and following withespaces
+        # -> replacing the blank in the middle of the number with a dot
         discount = discount_tag.tail
-        discount = re.sub("\D", " ", discount)
+        discount = re.sub(r"\D", " ", discount)
         discount = discount.strip()
         discount = re.sub(" ", "", discount)
 
@@ -345,20 +350,22 @@ def _get_percent_discount_from_table(tree: etree) -> float:
 
     return None
 
+
 def _get_percent_discount_from_span_tag(tree: etree) -> float:
     """select, validate and transform the item percent_discount from the given html-tree"""
 
     logging.debug("Calling the _get_percent_discount_from_span_tag function")
 
     span_tag = tree.find(
-        './/span[@class = "a-size-large a-color-price savingPriceOverride aok-align-center reinventPriceSavingsPercentageMargin savingsPercentage"]'
+        './/span[@class = "a-size-large a-color-price savingPriceOverride aok-align-center reinventPriceSavings'
+        'PercentageMargin savingsPercentage"]'
     )
 
     if span_tag is None:
         return None
     try:
         discount: str = span_tag.text
-        discount = re.sub("\D", "", discount)
+        discount = re.sub(r"\D", "", discount)
 
         if discount.strip() and discount is not None:
             logging.debug("item percent_discount found")
@@ -368,6 +375,7 @@ def _get_percent_discount_from_span_tag(tree: etree) -> float:
         pass
 
     return None
+
 
 def _calculate_percent_discount(tree: etree) -> float:
     """Calculating item percent_discount using above implemented methods"""
@@ -394,6 +402,7 @@ def _calculate_percent_discount(tree: etree) -> float:
 
     return None
 
+
 def _get_prime(tree: etree) -> bool:
     """select, validate and transform the item prime from the given html-tree"""
     logging.debug("Calling the get_prime function")
@@ -404,6 +413,7 @@ def _get_prime(tree: etree) -> bool:
         return True
     return False
 
+
 def _get_regular_price(tree: etree) -> float:
     """select, validate and transform the item regular_price from the given html-tree"""
     logging.debug("Calling the get_regular_price function")
@@ -411,27 +421,28 @@ def _get_regular_price(tree: etree) -> float:
     span_tag = tree.find('.//span[@data-a-color = "secondary"]')
 
     if span_tag is None:
-        logging.info("item regular price not found -> calling function for item current price")
+        logging.info(
+            "item regular price not found -> calling function for item current price"
+        )
         return _get_current_price(tree)
 
     current_price_tag = span_tag.find('.//span[@class = "a-offscreen"]')
 
     if current_price_tag is None:
-        logging.info("item regular price not found -> calling function for item current price")
+        logging.info(
+            "item regular price not found -> calling function for item current price"
+        )
         return _get_current_price(tree)
 
     try:
-        # Replacing non numeric characters with blanks -> Stripping all leading and following withespaces -> replacing the blank in the middle of the number with a dot
+        # Replacing non numeric characters with blanks -> Stripping all leading and following withespaces
+        # -> replacing the blank in the middle of the number with a dot
         current_price: str = current_price_tag.text
-        current_price = re.sub("\D", " ", current_price)
+        current_price = re.sub(r"\D", " ", current_price)
         current_price = current_price.strip()
         current_price = re.sub(" ", "", current_price)
 
-        if (
-            current_price.strip()
-            and current_price != ","
-            and current_price is not None
-        ):
+        if current_price.strip() and current_price != "," and current_price is not None:
             logging.debug("item regular_price found")
             return float(current_price)
 
@@ -440,7 +451,9 @@ def _get_regular_price(tree: etree) -> float:
     except:
         logging.warning("Can not parse item regular_price")
 
-    logging.info("item regular price not found -> calling function for item current price")
+    logging.info(
+        "item regular price not found -> calling function for item current price"
+    )
     return _get_current_price(tree)
 
 
@@ -459,4 +472,3 @@ def _get_amazon_choice(tree: etree) -> bool:
     if span_tags is not None and len(span_tags) > 1:
         return True
     return False
-
