@@ -33,7 +33,7 @@ def crawl(url_file, settings_file):
         try:
             response = proxy_service.get_html(url, header)
         except ProxyListIsEmptyError:
-            exit(1)
+            exit("No more proxies left in the proxy list. The program has been stopped!")
         # if the crawler is called from outside as module it returns the html string. This is used to test this script
         if __name__ != "__main__":
             return response
