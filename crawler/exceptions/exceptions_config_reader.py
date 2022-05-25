@@ -8,6 +8,3 @@ class EmptySettingsError(Exception):
 
 class InvalidClientError(Exception):
     pass
-
-class ProxyNotWorkingError(Exception):
-    pass
