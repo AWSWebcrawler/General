@@ -1,6 +1,6 @@
 import os
 
-from item_factory import item_factory
+from crawler.item_factory import item_factory
 
 import unittest
 
@@ -12,7 +12,7 @@ class TestItemFactory(unittest.TestCase):
         url = "https://www.amazon.de/dp/B084DWG2VQ?ref_=cm_sw_r_cp_ud_dp_93J9GCGXC997VW26Y0ES"
         html = ""
         print(os.getcwd())
-        with open('../test_item_factory_testfile.html', 'r', encoding='utf8') as file:
+        with open('./test_item_factory_testfile.html', 'r', encoding='utf8') as file:
             html = file.read()
 
         product = item_factory.create_item(html, url)
@@ -21,5 +21,5 @@ class TestItemFactory(unittest.TestCase):
         product["date"] = None
         product["timestamp"] = None
 
-        expected = "{'name': 'Echo Dot (4. Generation) | Smarter Lautsprecher mit Alexa | Anthrazit', 'current_price': 59.99, 'price_regular': 59.99, 'prime': True, 'discount_in_euros': 0.0, 'percent_discount': 0.0, 'sold_by_amazon': True, 'seller': 'Amazon', 'amazon_choice': True, 'asin': 'B084DWG2VQ', 'url': 'https://www.amazon.de/dp/B084DWG2VQ?ref_=cm_sw_r_cp_ud_dp_93J9GCGXC997VW26Y0ES', 'timestamp': None, 'date': None, 'time': None}"
+        expected = "{'name': 'Echo Dot (4. Generation) | Smarter Lautsprecher mit Alexa | Anthrazit', 'current_price': 59.99, 'price_regular': 59.99, 'prime': True, 'discount_in_euros': None, 'percent_discount': None, 'sold_by_amazon': True, 'seller': 'Amazon', 'amazon_choice': True, 'asin': 'B084DWG2VQ', 'url': 'https://www.amazon.de/dp/B084DWG2VQ?ref_=cm_sw_r_cp_ud_dp_93J9GCGXC997VW26Y0ES', 'timestamp': None, 'date': None, 'time': None}"
         self.assertEqual(expected, str(product), "The created product does not match the expected output.")
