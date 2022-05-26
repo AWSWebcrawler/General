@@ -13,6 +13,7 @@ from header_creater.create_header import generate_header
 from item_factory.item_factory import create_item
 from store import store
 from exceptions.proxy_exception import ProxyListIsEmptyError
+from exceptions.item_factory_exception import LxmlTreeNotInitializedError
 
 def main():
     crawl('../config/url.yaml', '../config/settings.yaml')
@@ -37,7 +38,10 @@ def crawl(url_file, settings_file):
         # if the crawler is called from outside as module it returns the html string. This is used to test this script
         if __name__ != "__main__":
             return response
-        product_dict = create_item(response['html'], url)
+        try:
+            product_dict = create_item(response['html'], url)
+        except LxmlTreeNotInitializedError:
+            pass
         store.store_item(product_dict, settings_dict)
 
 

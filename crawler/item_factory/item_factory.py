@@ -6,6 +6,7 @@ import re
 from datetime import datetime
 from io import StringIO
 from lxml import etree
+from exceptions.item_factory_exception import LxmlTreeNotInitializedError
 
 
 def create_item(html: str, url: str) -> dict:
@@ -20,6 +21,12 @@ def create_item(html: str, url: str) -> dict:
 
     parser = etree.HTMLParser()
     tree = etree.parse(StringIO(html), parser)
+
+    try:
+        if "<lxml.etree.DocInfo object at " not in str(tree.docinfo):
+            raise LxmlTreeNotInitializedError
+    except (AssertionError, LxmlTreeNotInitializedError):
+        raise LxmlTreeNotInitializedError
 
     logging.debug("Tree is created from the parsed html")
 
@@ -46,7 +53,7 @@ def create_item(html: str, url: str) -> dict:
 def _get_name(tree: etree) -> str:
     """select, validate and transform the item name from the given html-tree"""
 
-    logging.debug("Calling the get_name function")
+    logging.debug("Calling the _get_name function")
 
     # Searching for name_tag on mobile devices
     name_tag = tree.find('.//span[@id = "title"]')
@@ -76,7 +83,7 @@ def _get_name(tree: etree) -> str:
 def _get_current_price(tree: etree) -> float:
     """select, validate and transform the item current_price from the given html-tree"""
 
-    logging.debug("Calling the get_current_price function")
+    logging.debug("Calling the _get_current_price function")
 
     price_tag = tree.find(
         './/div[@class = "a-section aok-hidden twister-plus-buying-options-price-data"]'
@@ -109,7 +116,7 @@ def _get_current_price(tree: etree) -> float:
 def _get_sold_by_amazon(tree: etree) -> bool:
     """select, validate and transform the item sold_by_amazon from the given html-tree"""
 
-    logging.debug("Calling the get_sold_by_amazon function")
+    logging.debug("Calling the _get_sold_by_amazon function")
 
     div_tag = tree.find('.//div[@id = "merchant-info"]')
 
@@ -134,7 +141,7 @@ def _get_sold_by_amazon(tree: etree) -> bool:
 
 def _get_date(datetime_now: datetime) -> str:
     """Returns the date part of the given datetime"""
-    logging.debug("Calling the get_date function")
+    logging.debug("Calling the _get_date function")
 
     date = datetime_now.strftime("%Y-%m-%d")
     return date
@@ -142,7 +149,7 @@ def _get_date(datetime_now: datetime) -> str:
 
 def _get_time(datetime_now: datetime) -> str:
     """Returns the time part of the given datetime"""
-    logging.debug("Calling the get_time function")
+    logging.debug("Calling the _get_time function")
 
     time = datetime_now.strftime("%H:%M:%S")
     return time
@@ -150,7 +157,7 @@ def _get_time(datetime_now: datetime) -> str:
 
 def _get_timestamp(datetime_now: datetime) -> float:
     """Returns the unix timestamp of the given datetime"""
-    logging.debug("Calling the get_timestamp function")
+    logging.debug("Calling the _get_timestamp function")
 
     timestamp = datetime.timestamp(datetime_now)
     return timestamp
@@ -159,7 +166,7 @@ def _get_timestamp(datetime_now: datetime) -> float:
 def _get_url(url: str) -> str:
     """validate the given url"""
 
-    logging.debug("Calling the get_url function")
+    logging.debug("Calling the _get_url function")
 
     if re.match("^https://www.amazon.de", url):
         return url
@@ -170,7 +177,7 @@ def _get_url(url: str) -> str:
 
 def _get_asin(tree: etree) -> str:
     """select, validate and transform the item asin from the given html-tree"""
-    logging.debug("Calling the get_asin function")
+    logging.debug("Calling the _get_asin function")
 
     asin_tag = tree.find('.//input[@id = "ASIN"]')
 
@@ -200,7 +207,7 @@ def _get_asin(tree: etree) -> str:
 
 def _get_seller(tree: etree) -> str:
     """select, validate and transform the item seller from the given html-tree"""
-    logging.debug("Calling the get_seller function")
+    logging.debug("Calling the _get_seller function")
 
     if _get_sold_by_amazon(tree):
         return "Amazon"
@@ -230,7 +237,7 @@ def _get_seller(tree: etree) -> str:
 
 def _get_discount_in_euros(tree: etree) -> float:
     """Calling methods to select, validate and transform the item discount_in_euros from the given html-tree"""
-    logging.debug("Calling the get_discount function")
+    logging.debug("Calling the _get_discount function")
 
     discount: float = _get_discount_in_euros_from_table(tree)
 
@@ -399,7 +406,7 @@ def _calculate_percent_discount(tree: etree) -> float:
 
 def _get_prime(tree: etree) -> bool:
     """select, validate and transform the item prime from the given html-tree"""
-    logging.debug("Calling the get_prime function")
+    logging.debug("Calling the _get_prime function")
 
     div_tag = tree.find('.//div[@id = "bbop-sbbop-container"]')
 
@@ -410,7 +417,7 @@ def _get_prime(tree: etree) -> bool:
 
 def _get_regular_price(tree: etree) -> float:
     """select, validate and transform the item regular_price from the given html-tree"""
-    logging.debug("Calling the get_regular_price function")
+    logging.debug("Calling the _get_regular_price function")
 
     span_tag = tree.find('.//span[@data-a-color = "secondary"]')
 
@@ -434,7 +441,7 @@ def _get_regular_price(tree: etree) -> float:
         current_price: str = current_price_tag.text
         current_price = re.sub(r"\D", " ", current_price)
         current_price = current_price.strip()
-        current_price = re.sub(" ", "", current_price)
+        current_price = re.sub(" ", ".", current_price)
 
         if current_price.strip() and current_price != "," and current_price is not None:
             logging.debug("item regular_price found")
@@ -453,7 +460,7 @@ def _get_regular_price(tree: etree) -> float:
 
 def _get_amazon_choice(tree: etree) -> bool:
     """select, validate and transform the item amazon_choice from the given html-tree"""
-    logging.debug("Calling the get_amazon_choice function")
+    logging.debug("Calling the _get_amazon_choice function")
 
     div_tag = tree.find('.//div[@id = "acBadge_feature_div"]')
 

@@ -1,0 +1,2 @@
+class LxmlTreeNotInitializedError(Exception):
+    pass
