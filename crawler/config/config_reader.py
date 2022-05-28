@@ -4,7 +4,7 @@ import yaml
 from yaml import SafeLoader
 import validators
 import os
-from exceptions.exceptions_config_reader import EmptySettingsError, InvalidClientError, MalformedUrlError
+from crawler.exceptions.exceptions_config_reader import EmptySettingsError, InvalidClientError, MalformedUrlError
 
 
 def read_config_files(url_config_path, settings_config_path) -> dict:
