@@ -5,9 +5,10 @@ import random
 import logging
 
 
-def generate_header(settings) -> dict:
+def generate_header(settings: dict) -> dict:
+    """Generates the Header for the Request."""
     client = settings["client"]
-    logging.info("started generate_header started with client: " + client)
+    logging.info("started generate_header started with client: %s", client)
     user_agent = get_user_agent(client)
     header_dict = {
         "user-agent": user_agent,
@@ -18,15 +19,16 @@ def generate_header(settings) -> dict:
         "viewport-width": "1080",
         "Connection": "keep-alive",
     }
-    logging.info("end of generate_header, with header created: " + str(header_dict))
+    logging.info("end of generate_header, with header created: %s", str(header_dict))
     return header_dict
 
 
 def get_user_agent(browser_type):
-    logging.debug("started get_user_agent with client: " + browser_type)
+    """Gets a user agent string from the dict down below."""
+    logging.debug("started get_user_agent with client: %s", browser_type)
     random_number = random.randrange(0, len(user_agents[browser_type]))
     agent_string = user_agents[browser_type][random_number]
-    logging.debug("end of get_user_agent, with agent String: " + agent_string)
+    logging.debug("end of get_user_agent, with agent String: %s", agent_string)
     return agent_string
 
 
