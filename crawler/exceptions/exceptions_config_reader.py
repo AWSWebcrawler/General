@@ -8,3 +8,9 @@ class EmptySettingsError(Exception):
 
 class InvalidClientError(Exception):
     pass
+
+class InvalidDatatypeError(Exception):
+    pass
+
+class AWSSettingsError(Exception):
+    pass
