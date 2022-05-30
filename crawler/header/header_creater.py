@@ -60,3 +60,4 @@ def get_user_agent(device, software):
     user_agent = user_agent_rotator.get_random_user_agent()
     print(user_agent)
     return user_agent
+
