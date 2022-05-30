@@ -51,7 +51,7 @@ def store_to_csv(product: dict, filepath: str):
         write_values = []
         for header in header_list:
             value = product[header]
-            if isinstance(value) == str:
+            if isinstance(value, str):
                 value = value.replace('"', '').replace("'", '')
                 value.strip()
             write_values.append(value)

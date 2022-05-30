@@ -17,6 +17,11 @@ Used in the item_factory module to parse the html of a website and extract speci
 ```pip install lxml```
 
 ## requests
-Used in the spider module to create a reqeust to a specific url.
+Used in the proxy module to create a reqeust to a specific url.
 
-```pip install validators```
+```pip install requests```
+
+## random-user-agent
+Used in the header module to create a more random header for the request.
+
+```pip install random-user-agent```
