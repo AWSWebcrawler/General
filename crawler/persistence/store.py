@@ -1,5 +1,8 @@
-"""This Modul stores the data in csv format.
-It automatically detects whether it is running in an AWS enivornment or local and chooses the right store method."""
+"""Stores the product as csv or in S3
+
+    receives a product_dict with all values and the settings_dict
+    with the wanted settings e.g. where to store"""
+
 import csv
 from os.path import exists
 import logging
@@ -23,47 +26,36 @@ def store_to_csv(product: dict, filepath: str):
     """Gets called by store_item with a dictionary containing product information
     and stores the product as a line in a csv file"""
     file_exists = exists(filepath)
-    with open(filepath, mode="a", encoding="utf-8", newline="") as file:
+    with open(filepath, 'a', encoding='utf-8', newline='') as file:
+        # also need to configure the headers
         writer = csv.writer(file)
+        header_list = ['timestamp',
+                       'date',
+                       'time',
+                       'name',
+                       'current_price',
+                       'price_regular',
+                       'prime',
+                       'discount_in_euros',
+                       'percent_discount',
+                       'sold_by_amazon',
+                       'seller',
+                       'amazon_choice',
+                       'asin',
+                       'url']
         if file_exists:
             pass
         else:
-            writer.writerow(
-                [
-                    "timestamp",
-                    "date",
-                    "time",
-                    "name",
-                    "current_price",
-                    "price_regular",
-                    "prime",
-                    "discount_in_euros",
-                    "percent discount",
-                    "sold by amazon",
-                    "seller",
-                    "amazon_choice",
-                    "asin",
-                    "url",
-                ]
-            )
-        writer.writerow(
-            [
-                product["timestamp"],
-                product["date"],
-                product["time"],
-                product["name"].replace('"', "").replace("'", ""),
-                product["current_price"],
-                product["price_regular"],
-                product["prime"],
-                product["discount_in_euros"],
-                product["percent_discount"],
-                product["sold_by_amazon"],
-                product["seller"],
-                product["amazon_choice"],
-                product["asin"],
-                product["url"],
-            ]
-        )
+            writer.writerow(header_list)
+
+        write_values = []
+        for header in header_list:
+            value = product[header]
+            if isinstance(value) == str:
+                value = value.replace('"', '').replace("'", '')
+                value.strip()
+            write_values.append(value)
+        writer.writerow(write_values)
         file.close()
 
 

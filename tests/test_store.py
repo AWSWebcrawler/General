@@ -38,5 +38,5 @@ class TestStore(unittest.TestCase):
         expected_string = "1652119616.320101,2022-05-09,20:06:56,Echo Dot (4. Generation) | Smarter Lautsprecher mit Alexa | Anthrazit,12345,59.99,False,29.99,45%,True,amazon,False,B084DWG2VQ,https://www.amazon.de/der-neue-echo-dot-4-generation-smarter-lautsprecher-mit-alexa-anthrazit/dp/B084DWG2VQ"
 
         # Need to append other rows/ lines if tested differently
-        self.assertEqual(last_line.rstrip(),  expected_string.rstrip(), 'The last line does not match with expected result')
+        self.assertEqual(expected_string.rstrip(), last_line.rstrip(), 'The last line does not match with expected result')
 
