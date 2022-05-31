@@ -14,7 +14,6 @@ class TestItemFactory(unittest.TestCase):
             'url3': 'https://www.amazon.de/FLAMMBURO-Paraffinbasis-Grillanz%C3%BCnder-Kaminanz%C3%BCnder-Paraffinw' \
                     '%C3%BCrfel/dp/B08YCWDLTQ',
             'url4': 'https://www.amazon.de/CYBERPUNK-2077-DAY-Standard-Xbox/dp/B07SF1LZ9Q',
-            'url5': 'https://www.amazon.de/Samsung-Active2-Aluminium-Bluetooth-Schwarz/dp/B07VMH5VD2'
         }
 
         with open('./test_item_factory_testfile1.html', 'r', encoding='utf8') as file:
@@ -25,15 +24,12 @@ class TestItemFactory(unittest.TestCase):
             test_html_3 = file.read()
         with open('./test_item_factory_testfile4.html', 'r', encoding='utf8') as file:
             test_html_4 = file.read()
-        with open('./test_item_factory_testfile5.html', 'r', encoding='utf8') as file:
-            test_html_5 = file.read()
 
         self.test_html = {
             'test_html_1': test_html_1,
             'test_html_2': test_html_2,
             'test_html_3': test_html_3,
             'test_html_4': test_html_4,
-            'test_html_5': test_html_5,
         }
 
     def test_create_item(self):
