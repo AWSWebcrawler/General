@@ -1,10 +1,10 @@
-"""Class to test the item asin."""
+"""Class to test the item price_regular."""
 import unittest
 from crawler.item_factory import item_factory
 
 
 class TestItemFactory(unittest.TestCase):
-    """Test Class for item asin"""
+    """Test Class for item price_regular"""
 
     def setUp(self) -> None:
         self.urls = {
@@ -36,17 +36,21 @@ class TestItemFactory(unittest.TestCase):
         """Tests the create item function of the item_factory module"""
 
         product = item_factory.create_item(self.test_html['test_html_1'], self.urls['url1'])
-        expected = 'B084DWG2VQ'
-        self.assertEqual(expected, product["asin"], "The created item asin does not match the expected output.")
+        expected = 59.99
+        self.assertEqual(expected, product["price_regular"],
+                         "The created item price_regular does not match the expected output.")
 
         product = item_factory.create_item(self.test_html['test_html_2'], self.urls['url2'])
-        expected = 'B091CK241X'
-        self.assertEqual(expected, product["asin"], "The created item asin does not match the expected output.")
+        expected = 104.90
+        self.assertEqual(expected, product["price_regular"],
+                         "The created item price_regular does not match the expected output.")
 
         product = item_factory.create_item(self.test_html['test_html_3'], self.urls['url3'])
-        expected = 'B08YCWDLTQ'
-        self.assertEqual(expected, product["asin"], "The created item asin does not match the expected output.")
+        expected = 24.99
+        self.assertEqual(expected, product["price_regular"],
+                         "The created item price_regular does not match the expected output.")
 
         product = item_factory.create_item(self.test_html['test_html_4'], self.urls['url4'])
-        expected = 'B07SF1LZ9Q'
-        self.assertEqual(expected, product["asin"], "The created item asin does not match the expected output.")
+        expected = 35.51
+        self.assertEqual(expected, product["price_regular"],
+                         "The created item price_regular does not match the expected output.")

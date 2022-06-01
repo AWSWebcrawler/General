@@ -36,17 +36,21 @@ class TestItemFactory(unittest.TestCase):
         """Tests the create item function of the item_factory module"""
 
         product = item_factory.create_item(self.test_html['test_html_1'], self.urls['url1'])
-        expected = 'B084DWG2VQ'
-        self.assertEqual(expected, product["asin"], "The created item asin does not match the expected output.")
+        expected = '100 x 100 x 89 mm'
+        self.assertEqual(expected, product["product_dimensions"],
+                         "The created item product_dimensions does not match the expected output.")
 
         product = item_factory.create_item(self.test_html['test_html_2'], self.urls['url2'])
-        expected = 'B091CK241X'
-        self.assertEqual(expected, product["asin"], "The created item asin does not match the expected output.")
+        expected = '17.8 x 7.3 x 17.7 cm; 0.48 Gramm'
+        self.assertEqual(expected, product["product_dimensions"],
+                         "The created item product_dimensions does not match the expected output.")
 
         product = item_factory.create_item(self.test_html['test_html_3'], self.urls['url3'])
-        expected = 'B08YCWDLTQ'
-        self.assertEqual(expected, product["asin"], "The created item asin does not match the expected output.")
+        expected = '28 x 20 x 27.5 cm; 4.68 Kilogramm'
+        self.assertEqual(expected, product["product_dimensions"],
+                         "The created item product_dimensions does not match the expected output.")
 
         product = item_factory.create_item(self.test_html['test_html_4'], self.urls['url4'])
-        expected = 'B07SF1LZ9Q'
-        self.assertEqual(expected, product["asin"], "The created item asin does not match the expected output.")
+        expected = '1.9 x 17.2 x 13.6 cm; 140 Gramm'
+        self.assertEqual(expected, product["product_dimensions"],
+                         "The created item product_dimensions does not match the expected output.")

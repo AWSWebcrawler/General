@@ -36,17 +36,19 @@ class TestItemFactory(unittest.TestCase):
         """Tests the create item function of the item_factory module"""
 
         product = item_factory.create_item(self.test_html['test_html_1'], self.urls['url1'])
-        expected = 'B084DWG2VQ'
-        self.assertEqual(expected, product["asin"], "The created item asin does not match the expected output.")
+        self.assertIsNone(product["product_id"], "The created item product_id does not match the expected output.")
 
         product = item_factory.create_item(self.test_html['test_html_2'], self.urls['url2'])
-        expected = 'B091CK241X'
-        self.assertEqual(expected, product["asin"], "The created item asin does not match the expected output.")
+        expected = 'QAU-00022'
+        self.assertEqual(expected, product["product_id"],
+                         "The created item product_id does not match the expected output.")
 
         product = item_factory.create_item(self.test_html['test_html_3'], self.urls['url3'])
-        expected = 'B08YCWDLTQ'
-        self.assertEqual(expected, product["asin"], "The created item asin does not match the expected output.")
+        expected = '34097' #Teilenummer
+        self.assertEqual(expected, product["product_id"],
+                         "The created item product_id does not match the expected output.")
 
         product = item_factory.create_item(self.test_html['test_html_4'], self.urls['url4'])
-        expected = 'B07SF1LZ9Q'
-        self.assertEqual(expected, product["asin"], "The created item asin does not match the expected output.")
+        expected = '425978'
+        self.assertEqual(expected, product["product_id"],
+                         "The created item product_id does not match the expected output.")
