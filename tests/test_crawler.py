@@ -1,67 +1,61 @@
-import yaml
+"""Test for the crawler."""
 import os
-from crawler import crawl
 import unittest
+import yaml
+from crawler import main
 
 
 class TestCrawler(unittest.TestCase):
+    """Test for the crawler"""
+
     def test_crawler_html(self):
-        # this website is a site for webscraper training shouldn't change that much over time
-        testcase_string = 'DOCTYPEhtmlhtmllangenheadAntiflickersnippetrecommendedstyleasynchideopacity0importantstylescriptfunctionasynchidesclassNameyhstart1newDatehendifunctionsclassNamesclassNamereplaceRegExpyananhidehsetTimeoutfunctionihendnullchtimeoutcwindowdocumentdocumentElementasynchidedataLayer4000GTMNVFPDWBtruescriptGoogleTagManagerscriptfunctionwdsliwlwlwlpushgtmstartnewDategetTimeeventgtmjsvarfdgetElementsByTagNames0jdcreateElementsdlldataLayerlljasynctruejsrchttpswwwgoogletagmanagercomgtmjsididlfparentNodeinsertBeforejfwindowdocumentscriptdataLayerGTMNVFPDWBscriptEndGoogleTagManagertitleWebScraperTestSitestitlemetacharsetutf8metahttpequivXUACompatiblecontentIEedgechrome1metanamekeywordscontentwebscrapingWebScraperChromeextensionCrawlingCrossplatformscrapermetanamedescriptioncontentThemostpopularwebscrapingextensionStartscrapinginminutesAutomateyourtaskswithourCloudScraperNosoftwaretodownloadnocodingneededlinkreliconsizes128x128hreffaviconpngmetanameviewportcontentwidthdevicewidthinitialscale10linkrelstylesheethrefcssappcsside30a09b05325a08d79ddlinkrelcanonicalhrefhttpswebscraperiotestsitestableslinkrelappletouchiconhrefimglogoiconpngscriptdefersrcjsappjsid1c1cafc4a642f71eb469scriptheadbodyGoogleTagManagernoscriptnoscriptiframesrchttpswwwgoogletagmanagercomnshtmlidGTMNVFPDWBheight0width0styledisplaynonevisibilityhiddeniframenoscriptEndGoogleTagManagernoscriptheaderrolebannerclassnavbarnavbarfixedtopnavbarstaticdivclasscontainerdivclassnavbarheaderadatatogglecollapsesidedatatargetsidecollapsedatatarget2sidecollapsecontainerbuttontypebuttonclassnavbartogglepullrightcollapseddatatogglecollapsedatatargetnavbardatatarget2sidecollapsecontainerdatatarget3sidecollapseariaexpandedfalseariacontrolsnavbarspanclasssronlyTogglenavigationspanspanclassiconbartopbarspanspanclassiconbarmiddlebarspanspanclassiconbarbottombarspanbuttonadivclassnavbarbrandahrefimgsrcimglogowhitesvgaltWebScraperadivdivdivclasssidecollapseinnavidnavbarrolenavigationclassnavbarcollapsecollapseulclassnavnavbarnavnavbarrightliclasshiddenahrefpagetopaliliahrefclassmenuitmpWebScraperpdivclasscrtadivaliliahrefcloudscraperclassmenuitmpCloudScraperpdivclasscrtadivaliliahrefpricingclassmenuitmpPricingpdivclasscrtadivaliliclassdropdownahrefsection3classmenuitmdropdowntoggledatatoggledropdownpLearnpdivclasscrtadivaulclassdropdownmenuliahrefdocumentationDocumentationaliliahreftutorialsVideoTutorialsaliliahrefhowtovideosHowtoaliliahreftestsitesTestSitesaliliahrefhttpsforumwebscraperiotargetblankrelnoopenerForumaliulliliatargetblankhrefhttpschromegooglecomwebstoredetailwebscraperjnhgnonknehpejjnehehllkliplmbmhnhlenclassbtnmenu1installextensionrelnoopenerInstallaliliahrefhttpscloudwebscraperioclassbtnmenu2Loginaliulnavdivdivheaderdivclasswrapperdivclassformenuherecontainerfluiddivdivclasscontainerfluidblogherodivclasscontainerdivclassrowdivclasscolmd12h1Tableplaygroundh1divdivdivdivdivclasscontainerpYoucantrainusingTableselectorherephrh2Semanticallycorrecttablewiththeadandtbodyh2pTableselectorautomaticallydetectsheaderanddatarowsptableclasstabletableborderedtheadtrthththFirstNameththLastNameththUsernamethtrtheadtbodytrtd1tdtdMarktdtdOttotdtdmdotdtrtrtd2tdtdJacobtdtdThorntontdtdfattdtrtrtd3tdtdLarrytdtdtheBirdtdtdtwittertdtrtbodytabletableclasstabletableborderedtheadtrthththFirstNameththLastNameththUsernamethtrtheadtbodytrtd4tdtdHarrytdtdPottertdtdhptdtrtrtd5tdtdJohntdtdSnowtdtddunnotdtrtrtd6tdtdTimtdtdBeantdtdtimbeantdtrtbodytablehrh2Tablewithouttheadtagh2pTableselectorautomaticallydetectsheaderanddatarowsptableclasstabletableborderedtbodytrthththFirstNameththLastNameththUsernamethtrtrtd1tdtdMarktdtdOttotdtdmdotdtrtrtd2tdtdJacobtdtdThorntontdtdfattdtrtrtd3tdtdLarrytdtdtheBirdtdtdtwittertdtrtbodytableh2Tablewithmultipleheaderrowsandanemptydatarowh2pYoumustmanuallyselectheaderanddatarowsptableclasstabletableborderedtbodytrthththcolspan2PersonththUserdatathtrtrthththFirstNameththLastNameththUsernamethtrtrtdtdtdtdtdtdtdtdtrtrtd1tdtdMarktdtdOttotdtdmdotdtrtrtd2tdtdJacobtdtdThorntontdtdfattdtrtrtd3tdtdLarrytdtdtheBirdtdtdtwittertdtrtbodytabledivdivclassclearfixdivdivclasspushdivdivdivclasscontainerfluidfooteridlayoutfooterdivclasscontainerdivclassrowdivclasscolmd3ullipProductspliliahrefWebScraperbrowserextensionaliliahrefpricingWebScraperCloudaliuldivdivclasscolmd3ullipCompanypliliahrefcontactContactaliliahrefprivacypolicyWebsitePrivacyPolicyaliliahrefextensionprivacypolicyBrowserExtensionPrivacyPolicyaliliahrefhttpwebscraperiouseast1elasticbeanstalkcomdownloadsWebScraperMediaKitzipMediakitaliliahrefjobsJobsaliuldivdivclasscolmd3ullipResourcespliliahrefblogBlogaliliahrefdocumentationDocumentationaliliahreftutorialsVideoTutorialsaliliahrefscreenshotsScreenshotsaliliahreftestsitesTestSitesaliliatargetblankhrefhttpsforumwebscraperiorelnoopenerForumaliuldivdivclasscolmd3ullipCONTACTUSpliliahrefmailtoinfowebscraperioinfowebscraperioaliliRupniecibasiela30brRigaLatviaLV1045liululclasssmedialiahrefhttpswwwfacebookcomwebscraperiotargetblankrelnoopenerimgsrcimgfbiconpngaltWebScraperonFacebookaliliahrefhttpstwittercomwebscraperiotargetblankrelnoopenerimgsrcimgtwiconpngaltWebScraperonTwitteraliuldivdivdivclassrowdivclasscolmd12pclasscopyrightCopyrightcopy2022ahrefWebScraperaAllrightsreservedMadebyzoom59pdivdivdivdivbodyhtml'
+        """Test for the crawler"""
+        url = [
+            "https://www.amazon.de/ATG-Schutzhandschuhe-MaxiFlex-Ultimate-Gr%C3%B6%C3%9Fe/dp/B07B8P7CP1"
+        ]
+        settings = {
+            "client": "linux",
+            "logconfig": {
+                "version": 1,
+                "root": {
+                    "handlers": ["console_handler"],
+                    "propagate": True,
+                    "level": "DEBUG",
+                },
+                "formatters": {
+                    "simple": {"format": "%(asctime)s %(levelname)s:%(message)s"},
+                    "standard": {
+                        "datefmt": "%m/%d/%Y|%I:%M:%S|%p",
+                        "format": " %(asctime)s: (%(filename)s): %(levelname)s: %(funcName)s Line: %(lineno)d - %(message)s",
+                    },
+                },
+                "disable_existing_loggers": True,
+                "handlers": {
+                    "console_handler": {
+                        "formatter": "simple",
+                        "class": "logging.StreamHandler",
+                        "level": "WARNING",
+                    },
+                },
+            },
+        }
 
-        url = ["https://webscraper.io/test-sites/tables"]
-        settings = {"client": "linux",
-                    "logconfig": {
-                        "version": 1,
-                        "root": {
-                            "handlers": [
-                                "console_handler",
-                                "file_handler"
-                            ],
-                            "propagate": True,
-                            "level": "DEBUG"
-                        },
-                        "formatters": {
-                            "simple": {
-                                "format": "%(asctime)s %(levelname)s:%(message)s"
-                            },
-                            "standard": {
-                                "datefmt": "%m/%d/%Y|%I:%M:%S|%p",
-                                "format": " %(asctime)s: (%(filename)s): %(levelname)s: %(funcName)s Line: %(lineno)d - %(message)s"
-                            }
-                        },
-                        "disable_existing_loggers": True,
-                        "handlers": {
-                            "console_handler": {
-                                "formatter": "simple",
-                                "class": "logging.StreamHandler",
-                                "level": "WARNING"
-                            },
-                            "file_handler": {
-                                "class": "logging.FileHandler",
-                                "formatter": "standard",
-                                "mode": "a",
-                                "level": "DEBUG",
-                                "filename": "logging/logging.logging"
-                            }
-                        }
-                    }
-                    }
+        with open("testURL.yaml", mode="w", encoding="utf-8") as url_file:
+            yaml.dump(url, url_file)
 
-        url_file = open("testURL.yaml", "w")
-        yaml.dump(url, url_file)
-        url_file.close()
-
-        settings_file = open("testsettings.yaml", "w")
-        yaml.dump(settings, settings_file)
-        settings_file.close()
+        with open("testsettings.yaml", mode="w", encoding="utf-8") as settings_file:
+            yaml.dump(settings, settings_file)
 
         # start of the actual test
 
-        html_response = crawl("testURL.yaml", "testsettings.yaml")
-        html_response = "".join(char for char in html_response if char.isalnum())
+        main.crawl("testURL.yaml", "testsettings.yaml")
         os.remove("testsettings.yaml")
         os.remove("testURL.yaml")
 
-        # the testcase_string variable is initialized at the start of this method
-        self.assertEqual(html_response, testcase_string, "The test string and the data scraped by the crawler do not match.")
+        last_line_dict = {}
+        with open("../output/linux.csv", mode="r", encoding="utf-8") as output_file:
+            last_line_dict = output_file.readlines()[-1].split(",")
+        expected_name = "ATG Schutzhandschuh Maxiflex®Ultimate 34-874 Größe 9 schwarz EN388 Kategorie II Inhalt: 5 Paar"
+        expected_asin = "B07B8P7CP1"
+        self.assertEqual(expected_name, last_line_dict[3], "Wrong value for name.")
+        self.assertEqual(expected_asin, last_line_dict[12], "Wrong value for asin")
