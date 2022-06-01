@@ -38,10 +38,7 @@ def crawl(url_file, settings_file):
         # if the crawler is called from outside as module it returns the html string. This is used to test this script
         if __name__ != "__main__":
             return response
-        try:
-            product_dict = create_item(response['html'], url)
-        except LxmlTreeNotInitializedError:
-            pass
+        product_dict = create_item(response['html'], url)
         store.store_item(product_dict, settings_dict)
 
 
