@@ -890,7 +890,8 @@ def _get_on_sale_since_from_list(tree: etree):
 
     for list_item in span_tags:
         try:
-            if list_item.find('.//span[@class = "a-text-bold"]').text.strip().startswith("Im Angebot von Amazon.de seit"):
+            if list_item.find('.//span[@class = "a-text-bold"]').text.strip().startswith(
+                    "Im Angebot von Amazon.de seit"):
 
                 locale.setlocale(locale.LC_TIME, 'de_DE')
                 date_format = '%d. %B %Y'
