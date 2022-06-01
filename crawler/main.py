@@ -31,11 +31,11 @@ def crawl(url_filepath: str, settings_filepath: str) -> None:
     """Central Method that controls the WebScraper logic."""
     settings_dict = read_config_files(url_filepath, settings_filepath)
     set_up_logging(settings_dict)
-    header = generate_header(settings_dict)
 
     proxy_service = ProxyService()
     for url in settings_dict["urls"]:
         try:
+            header = generate_header(settings_dict)
             response = proxy_service.get_html(url, header)
         except ProxyListIsEmptyError:
             exit(
@@ -48,9 +48,10 @@ def crawl(url_filepath: str, settings_filepath: str) -> None:
 def set_up_logging(settings_dict: dict) -> None:
     """Setting up the logging."""
     log_config = settings_dict["logconfig"]
-    log_config["handlers"]["file_handler"]["filename"] = (
-        "log/" + str(date.today()) + ".log"
-    )
+    if __name__ == "__main__":
+        log_config["handlers"]["file_handler"]["filename"] = (
+            "log/" + str(date.today()) + ".log"
+        )
     logging.config.dictConfig(log_config)
 
 
