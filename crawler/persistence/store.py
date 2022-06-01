@@ -87,7 +87,7 @@ def store_to_s3(product_dict: dict, settings_dict: dict) -> None:
     body = ""
 
     for item in headers:
-        body += str(product_dict[item]).replace(',', '')
+        body += str(product_dict[item]).replace(',', '').replace('"', '').replace("'", '')
         if item != headers[-1]:
             body += ","
     body += "\n"
