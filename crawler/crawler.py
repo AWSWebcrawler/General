@@ -13,7 +13,6 @@ from header_creater.create_header import generate_header
 from item_factory.item_factory import create_item
 from store import store
 from exceptions.proxy_exception import ProxyListIsEmptyError
-from exceptions.item_factory_exception import LxmlTreeNotInitializedError
 
 def main():
     crawl('../config/url.yaml', '../config/settings.yaml')
