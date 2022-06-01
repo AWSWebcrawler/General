@@ -52,6 +52,7 @@ def store_to_csv(product: dict, filepath: str):
         for header in header_list:
             value = product[header]
             if isinstance(value, str):
+                value = value.replace(",", "")
                 value = value.replace('"', '').replace("'", '')
                 value.strip()
             write_values.append(value)
@@ -86,9 +87,8 @@ def store_to_s3(product_dict: dict, settings_dict: dict) -> None:
     body = ""
 
     for item in headers:
-        # body += str(product_dict[item]).replace(',', ' ')
-        body += " ".join(str(product_dict[item]).split(","))
-        if item != "url":
+        body += str(product_dict[item]).replace(',', '').replace('"', '').replace("'", '')
+        if item != headers[-1]:
             body += ","
     body += "\n"
 
@@ -105,7 +105,7 @@ def store_to_s3(product_dict: dict, settings_dict: dict) -> None:
             column_names = ""
             for item in headers:
                 column_names += item
-                if item != "url":
+                if item != headers[-1]:
                     column_names += ","
             column_names += "\n"
             file.write(column_names)
