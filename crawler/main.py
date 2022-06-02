@@ -50,7 +50,7 @@ def crawl(url_filepath: str, settings_filepath: str) -> None:
         product_dict = create_item(response["html"], url)
         store_item(product_dict, settings_dict)
 
-    logging.info("Total run time: " + time.time() - start_time)
+    logging.info("Total run time: " + str(time.time() - start_time))
 
 
 def set_up_logging(settings_dict: dict) -> None:
