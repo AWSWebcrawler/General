@@ -139,7 +139,7 @@ def _get_sold_by_amazon(tree: etree) -> bool:
             return True
         return False
 
-    except AttributeError:
+    except (AttributeError, IndexError):
         logging.error("Error during parsing sold_by_amazon tag")
 
     return None
@@ -634,7 +634,10 @@ def _get_product_dimensions_from_div(tree: etree):
     if div_tag_id is None:
         return None
 
-    div_tag_class = div_tag_id.findall('.//div[@class = "content-grid-row-wrapper "]')[3]
+    try:
+        div_tag_class = div_tag_id.findall('.//div[@class = "content-grid-row-wrapper "]')[3]
+    except IndexError:
+        return None
 
     if div_tag_class is None:
         return None

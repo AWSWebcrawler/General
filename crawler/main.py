@@ -19,9 +19,7 @@ from crawler.exceptions.proxy_exception import ProxyListIsEmptyError
 
 def main(event, context) -> None:
     """Lambda handler function for AWS"""
-    start_time = time.time()
     crawl("/var/task/config/url.yaml", "/var/task/config/settings.yaml")
-    logging.info("Total run time: " + time.time() - start_time)
     return {
         "headers": {"Content-Type": "application/json"},
         "statusCode": 200,
@@ -33,6 +31,9 @@ def main(event, context) -> None:
 
 def crawl(url_filepath: str, settings_filepath: str) -> None:
     """Central Method that controls the WebScraper logic."""
+
+    start_time = time.time()
+
     settings_dict = read_config_files(url_filepath, settings_filepath)
     set_up_logging(settings_dict)
 
@@ -41,13 +42,15 @@ def crawl(url_filepath: str, settings_filepath: str) -> None:
         try:
             header = generate_header(settings_dict)
             response = proxy_service.get_html(url, header)
-            logging.info("Time for request with proxy " + response['proxy'] + " : " + response['time'])
+            logging.info("Time for request with proxy " + response['proxy'] + ": " + str(response['time']))
         except ProxyListIsEmptyError:
             sys.exit(
                 "No more proxies left in the proxy list. The program has been stopped!"
             )
         product_dict = create_item(response["html"], url)
         store_item(product_dict, settings_dict)
+
+    logging.info("Total run time: " + time.time() - start_time)
 
 
 def set_up_logging(settings_dict: dict) -> None:
