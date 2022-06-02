@@ -1,6 +1,5 @@
 #define settings here
 #config of the wanted client. only uncomment one client at a time. It will also be used as filename
-#    client: safari
 #    client: iphone
 #    client: android
 #    client: chrome_windows
