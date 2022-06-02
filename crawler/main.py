@@ -5,6 +5,8 @@
     - Call item_factory to extract individual tags
     - Calling the persistence module to save item"""
 import json
+import sys
+import time
 from datetime import date
 import logging.config
 from crawler.proxy.proxy_service import ProxyService
@@ -17,7 +19,9 @@ from crawler.exceptions.proxy_exception import ProxyListIsEmptyError
 
 def main(event, context) -> None:
     """Lambda handler function for AWS"""
+    start_time = time.time()
     crawl("/var/task/config/url.yaml", "/var/task/config/settings.yaml")
+    logging.info("Total run time: " + time.time() - start_time)
     return {
         "headers": {"Content-Type": "application/json"},
         "statusCode": 200,
@@ -37,8 +41,9 @@ def crawl(url_filepath: str, settings_filepath: str) -> None:
         try:
             header = generate_header(settings_dict)
             response = proxy_service.get_html(url, header)
+            logging.info("Time for request with proxy " + response['proxy'] + " : " + response['time'])
         except ProxyListIsEmptyError:
-            exit(
+            sys.exit(
                 "No more proxies left in the proxy list. The program has been stopped!"
             )
         product_dict = create_item(response["html"], url)
