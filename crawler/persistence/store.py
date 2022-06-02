@@ -7,9 +7,13 @@ import csv
 from os.path import exists
 import logging
 import boto3
+
 from botocore.exceptions import ClientError
+from crawler.exceptions.exceptions_config_reader import CouldNotWriteToFileError
+from crawler.logging.decorator import decorator_for_logging
 
 
+@decorator_for_logging
 def store_item(product_dict: dict, settings_dict: dict) -> None:
     """Method receives an item to be stored. It uses environment variables to determine
     whether storage in AWS S3 bucket or local in csv file is required"""
@@ -22,46 +26,56 @@ def store_item(product_dict: dict, settings_dict: dict) -> None:
         store_to_csv(product_dict, filepath)
 
 
+@decorator_for_logging
 def store_to_csv(product: dict, filepath: str):
     """Gets called by store_item with a dictionary containing product information
     and stores the product as a line in a csv file"""
     file_exists = exists(filepath)
+    logging.debug("File in filepath: " + filepath + " exists: "+file_exists)
     with open(filepath, 'a', encoding='utf-8', newline='') as file:
-        # also need to configure the headers
-        writer = csv.writer(file)
-        header_list = ['timestamp',
-                       'date',
-                       'time',
-                       'name',
-                       'current_price',
-                       'price_regular',
-                       'prime',
-                       'discount_in_euros',
-                       'percent_discount',
-                       'sold_by_amazon',
-                       'seller',
-                       'amazon_choice',
-                       'asin',
-                       'url']
-        if file_exists:
-            pass
-        else:
-            writer.writerow(header_list)
+        try:
+            writer = csv.writer(file)
+            header_list = ['timestamp',
+                           'date',
+                           'time',
+                           'name',
+                           'current_price',
+                           'price_regular',
+                           'prime',
+                           'discount_in_euros',
+                           'percent_discount',
+                           'sold_by_amazon',
+                           'seller',
+                           'amazon_choice',
+                           'asin',
+                           'url']
+            if file_exists:
+                pass
+            else:
+                logging.debug("File was newly created")
+                writer.writerow(header_list)
 
-        write_values = []
-        for header in header_list:
-            value = product[header]
-            if isinstance(value, str):
-                value = value.replace(",", "")
-                value = value.replace('"', '').replace("'", '')
-                value.strip()
-            write_values.append(value)
-        writer.writerow(write_values)
+            write_values = []
+            for header in header_list:
+                value = product[header]
+                if isinstance(value, str):
+                    value = value.replace(",", "")
+                    value = value.replace('"', '').replace("'", '')
+                    value.strip()
+                write_values.append(value)
+            writer.writerow(write_values)
+        except Exception:
+            logging.error("Could not write file")
+            raise CouldNotWriteToFileError from Exception(
+                "Could not write the file or append values to list"
+            )
         file.close()
 
 
+@decorator_for_logging
 def store_to_s3(product_dict: dict, settings_dict: dict) -> None:
-    """Method gets an product dictionary and the name of the used client. Items from the product_dict are then
+    """Method gets an product dictionary and the name of the used client.
+    Items from the product_dict are then
     stored in S3 in CSV format."""
     bucket_name = settings_dict["s3_bucket"]
     s3_filename = "%s_lambda.csv", settings_dict["client"]

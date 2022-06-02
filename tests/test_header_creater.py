@@ -1,8 +1,10 @@
-"""tests the header_creater module"""
+"""tests the header_creater module
+pip install pyyaml ua-parser user-agents"""
 
 import unittest
 from header.header_creater import generate_header
 from user_agents import parse
+
 
 clients = [{'client': "android"},
            {'client': "iphone"},
