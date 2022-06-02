@@ -114,7 +114,7 @@ def _get_current_price(tree: etree) -> float:
 
         logging.error("item current_price is empty")
 
-    except AttributeError:
+    except (AttributeError, IndexError):
         logging.error("Error during parsing current_price tag")
 
     return None
@@ -139,7 +139,7 @@ def _get_sold_by_amazon(tree: etree) -> bool:
             return True
         return False
 
-    except AttributeError:
+    except (AttributeError, IndexError):
         logging.error("Error during parsing sold_by_amazon tag")
 
     return None
@@ -556,7 +556,7 @@ def _get_review_score(tree: etree):
         if (re.match(r"[0-9],[0-9]", review_score)) and (review_score is not None):
             return review_score
         return None
-    except(TypeError, AttributeError):
+    except(TypeError, AttributeError, IndexError):
         logging.warning("Can not parse item review_score")
 
     return None
@@ -594,7 +594,7 @@ def _get_product_dimensions_from_list(tree: etree):
         try:
             if list_item.find('.//span[@class = "a-text-bold"]').text.strip().startswith("Produktabmessungen"):
                 return (list_item.findall('.//span')[1]).text
-        except(TypeError, AttributeError):
+        except(TypeError, AttributeError, IndexError):
             logging.warning("Can not parse item product_dimensions")
 
     return None
@@ -634,7 +634,10 @@ def _get_product_dimensions_from_div(tree: etree):
     if div_tag_id is None:
         return None
 
-    div_tag_class = div_tag_id.findall('.//div[@class = "content-grid-row-wrapper "]')[3]
+    try:
+        div_tag_class = div_tag_id.findall('.//div[@class = "content-grid-row-wrapper "]')[3]
+    except IndexError:
+        return None
 
     if div_tag_class is None:
         return None
@@ -645,7 +648,7 @@ def _get_product_dimensions_from_div(tree: etree):
         try:
             if table_item.find('.//strong').text.strip().startswith("Abmessungen"):
                 return (table_item.findall('.//p')[1]).text
-        except(TypeError, AttributeError):
+        except(TypeError, AttributeError, IndexError):
             logging.warning("Can not parse item product_dimensions")
 
     return None
@@ -669,7 +672,7 @@ def _get_brand(tree: etree):
         if "Amazon" in anchor_tag.text:
             return "Amazon"
         return anchor_tag.text.split("den ")[1].replace("-Store", "")
-    except(TypeError, AttributeError):
+    except(TypeError, AttributeError, IndexError):
         logging.warning("Can not parse item brand")
 
     return None
@@ -709,7 +712,7 @@ def _get_product_id_from_list(tree: etree):
             if list_item.find('.//span[@class = "a-text-bold"]').text.strip().startswith("Modellnummer") \
                     or list_item.find('.//span[@class = "a-text-bold"]').text.strip().startswith("Teilenummer"):
                 return (list_item.findall('.//span')[1]).text
-        except(TypeError, AttributeError):
+        except(TypeError, AttributeError, IndexError):
             logging.warning("Can not parse item product_id")
 
     return None
@@ -771,7 +774,7 @@ def _get_manufacturer_from_list(tree: etree):
         try:
             if list_item.find('.//span[@class = "a-text-bold"]').text.strip().startswith("Hersteller"):
                 return list_item.findall('.//span')[1].text
-        except(TypeError, AttributeError):
+        except(TypeError, AttributeError, IndexError):
             logging.warning("Can not parse item manufacturer")
 
     return None
@@ -831,7 +834,7 @@ def _get_country_of_origin_from_list(tree: etree):
         try:
             if list_item.find('.//span[@class = "a-text-bold"]').text.strip().startswith("Herkunftsland"):
                 return (list_item.findall('.//span')[1]).text
-        except(TypeError, AttributeError):
+        except(TypeError, AttributeError, IndexError):
             logging.warning("Can not parse item country_of_origin")
 
     return None
@@ -901,7 +904,7 @@ def _get_on_sale_since_from_list(tree: etree):
                 new_date = time.strptime(date, date_format)
 
                 return str(new_date.tm_mday) + "." + str(new_date.tm_mon) + "." + str(new_date.tm_year)
-        except(TypeError, AttributeError):
+        except(TypeError, AttributeError, IndexError):
             logging.warning("Can not parse item on_sale_since")
 
     return None
