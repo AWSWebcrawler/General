@@ -6,7 +6,7 @@ from random_user_agent.user_agent import UserAgent
 from random_user_agent.params import SoftwareName, OperatingSystem, SoftwareEngine
 
 
-def generate_header(settings) -> dict:
+def generate_header(settings: dict) -> dict:
     """Generates Header based on the chosen setting for the request"""
     check_client = settings['client']
     software = 'chrome'
@@ -33,7 +33,7 @@ def generate_header(settings) -> dict:
     return header_dict
 
 
-def get_user_agent(device, software):
+def get_user_agent(device: str, software:str) ->str:
     """Get random User Agent based on the given Client and browser
     (chrome is default if nothing else is given)"""
     device_dict = {
@@ -58,6 +58,5 @@ def get_user_agent(device, software):
         limit=100)
 
     user_agent = user_agent_rotator.get_random_user_agent()
-    print(user_agent)
     return user_agent
 
