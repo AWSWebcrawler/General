@@ -41,7 +41,7 @@ class ProxyService:
 
 def _call_url(url: str, header: dict, current_proxy: str) -> dict:
     """Makes the request to the given url with the given header and proxy. Also checks if the response is valid."""
-
+    proxy_timeout_secs = 10.0
     time_for_request = time.time()
     try:
         response = requests.get(url, headers=header, proxies={"http": current_proxy}, timeout=3)
@@ -51,7 +51,7 @@ def _call_url(url: str, header: dict, current_proxy: str) -> dict:
     time_request_finished = time.time() - time_for_request
     if "(MEOW)" not in response.text:
         raise ProxyGotBlockedError("Proxy is blocked: " + current_proxy)
-    if time_request_finished > 4.0:
+    if time_request_finished > proxy_timeout_secs:
         raise SlowProxyError("Proxy is too slow: " + current_proxy)
     if response.status_code == 200:
         return {

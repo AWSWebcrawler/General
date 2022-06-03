@@ -10,19 +10,19 @@ import boto3
 from botocore.exceptions import ClientError
 
 
-def store_item(product_dict: dict, settings_dict: dict) -> None:
+def store_items(product_output_list: list, settings_dict: dict) -> None:
     """Method receives an item to be stored. It uses environment variables to determine
     whether storage in AWS S3 bucket or local in csv file is required"""
     logging.debug("store_item_methode gestartet")
     if settings_dict["aws_env"]:
         logging.debug("store_to_s3 gestartet")
-        store_to_s3(product_dict, settings_dict)
+        store_to_s3(product_output_list, settings_dict)
     else:
         filepath = "../output/" + settings_dict["client"] + ".csv"
-        store_to_csv(product_dict, filepath)
+        store_to_csv(product_output_list, filepath)
 
 
-def store_to_csv(product: dict, filepath: str):
+def store_to_csv(product_output_list: list, filepath: str):
     """Gets called by store_item with a dictionary containing product information
     and stores the product as a line in a csv file"""
     file_exists = exists(filepath)
@@ -48,19 +48,21 @@ def store_to_csv(product: dict, filepath: str):
         else:
             writer.writerow(header_list)
 
-        write_values = []
-        for header in header_list:
-            value = product[header]
-            if isinstance(value, str):
-                value = value.replace(",", "")
-                value = value.replace('"', '').replace("'", '')
-                value.strip()
-            write_values.append(value)
-        writer.writerow(write_values)
+        for product_dict in product_output_list:
+            write_values = []
+            for header in header_list:
+                value = product_dict[header]
+                if isinstance(value, str):
+                    value = value.replace(",", "")
+                    value = value.replace('"', '').replace("'", '')
+                    value.strip()
+                write_values.append(value)
+            writer.writerow(write_values)
+            print(write_values)
         file.close()
 
 
-def store_to_s3(product_dict: dict, settings_dict: dict) -> None:
+def store_to_s3(product_output_list: dict, settings_dict: dict) -> None:
     """Method gets an product dictionary and the name of the used client. Items from the product_dict are then
     stored in S3 in CSV format."""
     bucket_name = settings_dict["s3_bucket"]
