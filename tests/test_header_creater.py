@@ -1,5 +1,4 @@
-"""tests the header_creater module
-pip install pyyaml ua-parser user-agents"""
+"""tests the header_creater module"""
 
 import unittest
 from header.header_creater import generate_header

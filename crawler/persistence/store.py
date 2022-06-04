@@ -17,9 +17,7 @@ from crawler.logging.decorator import decorator_for_logging
 def store_item(product_dict: dict, settings_dict: dict) -> None:
     """Method receives an item to be stored. It uses environment variables to determine
     whether storage in AWS S3 bucket or local in csv file is required"""
-    logging.debug("store_item_methode gestartet")
     if settings_dict["aws_env"]:
-        logging.debug("store_to_s3 gestartet")
         store_to_s3(product_dict, settings_dict)
     else:
         filepath = "../output/" + settings_dict["client"] + ".csv"
@@ -31,7 +29,7 @@ def store_to_csv(product: dict, filepath: str) -> None:
     """Gets called by store_item with a dictionary containing product information
     and stores the product as a line in a csv file"""
     file_exists = exists(filepath)
-    logging.debug("File in filepath: " + filepath + " exists: "+file_exists)
+    logging.debug("File in filepath: " + filepath + " exists: "+ str(file_exists))
     with open(filepath, 'a', encoding='utf-8', newline='') as file:
         try:
             writer = csv.writer(file)
