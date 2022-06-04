@@ -12,10 +12,12 @@ from crawler.exceptions.exceptions_config_reader import (
 )
 
 
-def read_config_files(url_config_path, settings_config_path) -> dict:
+def read_config_files(url_config_path: str, settings_config_path: str, aws_client_info: str) -> dict:
     """Calling of the other methods"""
     config_dict = read_settings_file(settings_config_path)
     config_dict["aws_env"] = is_aws_environment()
+    if config_dict["aws_env"] and aws_client_info is not None:
+        config_dict["client"] = aws_client_info
     validate_settings(config_dict)
 
     urls = read_url_list(url_config_path)
