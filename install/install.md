@@ -25,3 +25,8 @@ Used in the proxy module to create a reqeust to a specific url.
 Used in the header module to create a more random header for the request.
 
 ```pip install random-user-agent```
+
+## user-agent
+Used in the test header module to read the browser and client type.
+
+```pip install pyyaml ua-parser user-agents```

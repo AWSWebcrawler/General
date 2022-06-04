@@ -21,7 +21,8 @@ from crawler.exceptions.proxy_exception import ProxyListIsEmptyError
 
 def main(event, context) -> None:
     """Lambda handler function for AWS"""
-    crawl("/var/task/config/url.yaml", "/var/task/config/settings.yaml")
+    aws_client_info = str(event["client"])
+    crawl("/var/task/config/url.yaml", "/var/task/config/settings.yaml", aws_client_info=aws_client_info)
     return {
         "headers": {"Content-Type": "application/json"},
         "statusCode": 200,
@@ -31,12 +32,12 @@ def main(event, context) -> None:
     }
 
 
-def crawl(url_filepath: str, settings_filepath: str) -> None:
+def crawl(url_filepath: str, settings_filepath: str, aws_client_info=None) -> None:
     """Central Method that controls the WebScraper logic."""
 
     start_time = time.time()
 
-    settings_dict = read_config_files(url_filepath, settings_filepath)
+    settings_dict = read_config_files(url_filepath, settings_filepath, aws_client_info)
     set_up_logging(settings_dict)
 
     proxy_service = ProxyService()
