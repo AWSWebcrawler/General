@@ -27,7 +27,7 @@ def store_item(product_dict: dict, settings_dict: dict) -> None:
 
 
 @decorator_for_logging
-def store_to_csv(product: dict, filepath: str):
+def store_to_csv(product: dict, filepath: str) -> None:
     """Gets called by store_item with a dictionary containing product information
     and stores the product as a line in a csv file"""
     file_exists = exists(filepath)
