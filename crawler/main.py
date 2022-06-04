@@ -31,7 +31,6 @@ def main(event, context) -> None:
     }
 
 
-
 def crawl(url_filepath: str, settings_filepath: str) -> None:
     """Central Method that controls the WebScraper logic."""
 
@@ -46,11 +45,14 @@ def crawl(url_filepath: str, settings_filepath: str) -> None:
 
     threads = []
     for n in range(1, 5):
-        t = Thread(target=proxy_threading, args=(urls, proxy_service, settings_dict, product_output_list))
-        threads.append(t)
-        t.start()
-    for t in threads:
-        t.join()
+        crawler_thread = Thread(
+            target=proxy_threading,
+            args=(urls, proxy_service, settings_dict, product_output_list),
+        )
+        threads.append(crawler_thread)
+        crawler_thread.start()
+    for crawler_thread in threads:
+        crawler_thread.join()
 
     store_items(product_output_list, settings_dict)
     logging.info("Total run time: " + str(time.time() - start_time))
@@ -65,13 +67,25 @@ def set_up_logging(settings_dict: dict) -> None:
         )
     logging.config.dictConfig(log_config)
 
-def proxy_threading(urls: list, proxy_service: ProxyService, settings_dict: dict, product_output_list: list):
+
+def proxy_threading(
+    urls: list,
+    proxy_service: ProxyService,
+    settings_dict: dict,
+    product_output_list: list,
+):
+    """Threading method"""
     while urls:
         url = urls.pop()
         try:
             header = generate_header(settings_dict)
             response = proxy_service.get_html(url, header)
-            logging.info("Time for request with proxy " + response['proxy'] + ": " + str(response['time']))
+            logging.info(
+                "Time for request with proxy "
+                + response["proxy"]
+                + ": "
+                + str(response["time"])
+            )
         except ProxyListIsEmptyError:
             sys.exit(
                 "No more proxies left in the proxy list. The program has been stopped!"
@@ -80,8 +94,5 @@ def proxy_threading(urls: list, proxy_service: ProxyService, settings_dict: dict
         product_output_list.append(product_dict)
 
 
-
-
 if __name__ == "__main__":
     crawl("../config/url.yaml", "../config/settings.yaml")
-
