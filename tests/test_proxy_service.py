@@ -44,7 +44,7 @@ class TestProxy(unittest.TestCase):
             self.average_time_for_request += float(request_time)
 
         self.average_time_for_request = self.average_time_for_request / len(self.times)
-        print("Average time for a request: " + self.average_time_for_request)
+        print("Average time for a request: " + str(self.average_time_for_request))
         self.assertLessEqual(self.time_for_completion, self.max_time, "The time for completion is greater than 3 "
                                                                       "minutes and 20 seconds!")
 

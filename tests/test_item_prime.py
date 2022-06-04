@@ -40,7 +40,7 @@ class TestItemFactory(unittest.TestCase):
         self.assertTrue(product["prime"], "The created item prime does not match the expected output.")
 
         product = item_factory.create_item(self.test_html['test_html_2'], self.urls['url2'])
-        self.assertFalse(product["prime"], "The created item prime does not match the expected output.")
+        self.assertTrue(product["prime"], "The created item prime does not match the expected output.")
 
         product = item_factory.create_item(self.test_html['test_html_3'], self.urls['url3'])
         self.assertFalse(product["prime"], "The created item prime does not match the expected output.")
