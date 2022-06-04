@@ -29,7 +29,7 @@ def store_to_csv(product: dict, filepath: str) -> None:
     """Gets called by store_item with a dictionary containing product information
     and stores the product as a line in a csv file"""
     file_exists = exists(filepath)
-    logging.debug("File in filepath: " + filepath + " exists: "+ str(file_exists))
+    logging.debug("File in filepath: %s exists: %s", filepath, str(file_exists))
     with open(filepath, 'a', encoding='utf-8', newline='') as file:
         try:
             writer = csv.writer(file)
