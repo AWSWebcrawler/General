@@ -58,4 +58,4 @@ class TestCrawler(unittest.TestCase):
         expected_name = "ATG Schutzhandschuh Maxiflex®Ultimate 34-874 Größe 9 schwarz EN388 Kategorie II Inhalt: 5 Paar"
         expected_asin = "B07B8P7CP1"
         self.assertEqual(expected_name, last_line_dict[3], "Wrong value for name.")
-        self.assertEqual(expected_asin, last_line_dict[12], "Wrong value for asin")
+        self.assertEqual(expected_asin, last_line_dict[15], "Wrong value for asin")
