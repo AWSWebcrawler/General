@@ -109,8 +109,6 @@ def store_to_s3(product_dict: dict, settings_dict: dict) -> None:
     except ClientError as ex:
         if ex.response["Error"]["Code"] == "404":
             print("The object does not exist.")
-        else:
-            raise
     with open(local_file, mode="a+", encoding="utf-8") as file:
         empty_test_char = file.read(1)
         if empty_test_char:
