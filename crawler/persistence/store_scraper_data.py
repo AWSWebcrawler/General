@@ -98,7 +98,7 @@ def store_to_s3(product_dict: dict, settings_dict: dict, headers: list) -> None:
                   f"{str(now.minute)}/" \
                   f"{settings_dict['client']}_lambda.csv"
     local_file = "/tmp/download.csv"
-    s3 = boto3.resource("s3")
+    simple_storage_service = boto3.resource("s3")
     logging.debug("writing to bucket %s with filename %s", bucket_name, s3_filename)
     body = ""
 
@@ -121,4 +121,4 @@ def store_to_s3(product_dict: dict, settings_dict: dict, headers: list) -> None:
             file.write(column_names)
         file.write(body)
 
-    s3.meta.client.upload_file(local_file, bucket_name, s3_filename)
+    simple_storage_service.meta.client.upload_file(local_file, bucket_name, s3_filename)
