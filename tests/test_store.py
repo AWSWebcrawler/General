@@ -1,8 +1,9 @@
 """Test the write_to_csv method in store_scraper_data"""
+import csv
 import unittest
 import os
 from persistence.store_scraper_data import store_to_csv
-from persistence.store_error_html import store_to_html
+from persistence.store_error_html import store_to_csv_html
 from persistence.store_error_url import store_error_url
 
 
@@ -95,22 +96,30 @@ class TestStore(unittest.TestCase):
         )
 
     def test_store_to_html(self):
-        filepath = "testHTML.html"
-        store_to_html("testHTML", "<body><button>Tische sauber</button></body>")
+        test_list = ["<body><button>1 Tisch sauber</button></body>",
+                     "<body><button>2 Tische sauber</button></body>",
+                     "<body><button>3 Tische sauber</button></body>"]
+        filepath = "testHTML.csv"
+        store_to_csv_html("testHTML", test_list)
+        erg = ''
+
         with open(filepath, newline="", encoding="utf-8") as file:
-            last_line = file.readlines()[-1]
-            print(last_line)
+            csvFile = csv.reader(file)
+            for lines in csvFile:
+                erg += lines.pop().replace(",", '')
         file.close()
-        expected_string = "<body><button>Tische sauber</button></body>"
+        expected_string = "<body><button>1 Tisch sauber</button></body>" \
+                          "<body><button>2 Tische sauber</button></body>" \
+                          "<body><button>3 Tische sauber</button></body>"
         self.assertEqual(
             expected_string.rstrip(),
-            last_line.rstrip(),
+            erg.rstrip(),
             "The last line does not match with expected result",
         )
 
     def test_store_to_url(self):
-        filepath = "testHTML.csv"
-        error_dict_test = {"irgendein text"}
+        filepath = "irgendein_text.csv"
+        error_dict_test = {"irgendein_text": "noch krasserer text"}
         settings_dict = {
             "aws_env": True,
             "s3_bucket": "firstcrawlerbucket",
@@ -121,7 +130,7 @@ class TestStore(unittest.TestCase):
             print(last_line)
         file.close()
         os.remove(filepath)
-        expected_string = "irgendein text"
+        expected_string = "noch krasserer text"
         self.assertEqual(
             expected_string.rstrip(),
             last_line.rstrip(),

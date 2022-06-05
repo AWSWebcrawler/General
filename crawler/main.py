@@ -15,8 +15,10 @@ from crawler.proxy.proxy_service import ProxyService
 from crawler.config.config_reader import read_config_files
 from crawler.header.header_creater import generate_header
 from crawler.item_factory.item_factory import create_item
-from crawler.persistence.store_scraper_data import store_items
+from crawler.persistence.store_scraper_data import store_item
 from crawler.exceptions.proxy_exception import ProxyListIsEmptyError
+from crawler.persistence.store_error_url import store_error_url
+from crawler.persistence.store_error_html import store_error_html
 
 
 def main(event, context) -> None:
@@ -57,7 +59,7 @@ def crawl(url_filepath: str, settings_filepath: str, aws_client_info=None) -> No
     for crawler_thread in threads:
         crawler_thread.join()
 
-    store_items(product_output_list, settings_dict)
+    store_item(product_output_list, settings_dict)
     logging.info("Total run time: " + str(time.time() - start_time))
 
 
@@ -79,6 +81,7 @@ def proxy_threading(
     urls_with_problem: dict,
     html_with_error: dict
 ):
+
     """Threading method"""
     while urls:
         url = urls.pop()
@@ -99,6 +102,9 @@ def proxy_threading(
             )
         product_dict = create_item(response["html"], url, html_with_error)
         product_output_list.append(product_dict)
+
+    store_error_url(urls_with_problem, settings_dict)
+    store_error_html(html_with_error, settings_dict)
 
 
 if __name__ == "__main__":

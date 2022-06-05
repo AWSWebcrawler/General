@@ -11,22 +11,27 @@ from crawler.logging.decorator import decorator_for_logging
 def store_error_html(error_dict: dict, settings_dict: dict) -> None:
     logging.debug("store_error_methode gestartet")
     error_string = list(error_dict.keys())[0]
-    html = error_dict[error_string]
+    html_list = error_dict[error_string]
     if settings_dict["aws_env"]:
-        store_to_html(error_string, html)
+        store_to_csv_html(error_string, html_list)
     else:
-        store_to_s3(error_string, html, settings_dict)
+        store_to_s3(error_string, html_list, settings_dict)
 
 
 @decorator_for_logging
-def store_to_html(key: str, html: str):
-    with open(key + ".html", "w", encoding='utf-8') as file:
-        file.write(html)
+def store_to_csv_html(error_string: str, html: list):
+    body = ''
+    with open(error_string + ".csv", "w", encoding='utf-8') as file:
+        for item in html:
+            item = str(item).replace(',', '')
+            body += item
+            body += ','
+        file.write(body)
         file.close()
 
 
 @decorator_for_logging
-def store_to_s3(error_string, html, settings_dict: dict) -> None:
+def store_to_s3(error_string: str, html_list: list, settings_dict: dict) -> None:
     """Method gets the url and html.
      The html value is stored named after the url, then
     stored in S3 in html format."""
@@ -38,9 +43,14 @@ def store_to_s3(error_string, html, settings_dict: dict) -> None:
                   f"{str(now.day)}/" \
                   f"{str(now.hour)}/" \
                   f"{str(now.minute)}/" \
-                  f"{error_string}.html"
+                  f"{error_string}.csv"
+    body = ""
+
+    for item in html_list:
+        item = str(item).replace(',', '')
+        body += item
+        body += ','
+
     simple_storage_service = boto3.resource("s3")
     logging.debug("writing to bucket %s with filename %s", bucket_name, s3_filename)
-
-    simple_storage_service.put_object(bucket_name, s3_filename, Body=html)
-
+    simple_storage_service.Bucket(bucket_name).put_object(key=s3_filename, Body=body)
