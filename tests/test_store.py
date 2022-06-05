@@ -1,4 +1,4 @@
-from persistence.store import store_to_csv
+from persistence.store_scraper_data import store_to_csv
 import unittest
 import os
 
@@ -8,35 +8,33 @@ class TestStore(unittest.TestCase):
         """Tests the store_to_csv method of the persistence module. Stores given productinformation into a file
         and checks if the written data matches the excepted values"""
 
-        sample_product_list = [
-            {
-                "name": '"Echo Dot (4. Generation) | Smarter Lautsprecher mit Alexa" | Anthrazit',
-                "discount_in_euros": 29.99,
-                "price_regular": 59.99,
-                "prime": False,
-                "sold_by_amazon": True,
-                "seller": "amazon",
-                "asin": "B084DWG2VQ",
-                "url": "https://www.amazon.de/der-neue-echo-dot-4-generation-smarter-lautsprecher-mit-alexa-anthrazit"
-                       "/dp/B084DWG2VQ",
-                "timestamp": "1652119616.320101",
-                "date": "2022-05-09",
-                "time": "20:06:56",
-                "current_price": "12345",
-                "percent_discount": "45%",
-                "amazon_choice": False,
-                "brand": None,
-                "shipping": None,
-                "amazon_choice_for": None,
-                "product_id": None,
-                "manufacturer": None,
-                "country_of_origin": None,
-                "product_dimensions": None,
-                "number_of_reviews": None,
-                "review_score": None,
-                "on_sale_since": None,
-            }]
-
+        sample_product_list = {
+            "name": '"Echo Dot (4. Generation) | Smarter Lautsprecher mit Alexa" | Anthrazit',
+            "discount_in_euros": 29.99,
+            "price_regular": 59.99,
+            "prime": False,
+            "sold_by_amazon": True,
+            "seller": "amazon",
+            "asin": "B084DWG2VQ",
+            "url": "https://www.amazon.de/der-neue-echo-dot-4-generation-smarter-lautsprecher-mit-alexa-anthrazit"
+                   "/dp/B084DWG2VQ",
+            "timestamp": "1652119616.320101",
+            "date": "2022-05-09",
+            "time": "20:06:56",
+            "current_price": "12345",
+            "percent_discount": "45%",
+            "amazon_choice": False,
+            "brand": None,
+            "shipping": None,
+            "amazon_choice_for": None,
+            "product_id": None,
+            "manufacturer": None,
+            "country_of_origin": None,
+            "product_dimensions": None,
+            "number_of_reviews": None,
+            "review_score": None,
+            "on_sale_since": None,
+        }
 
         filepath = "testCSV.csv"
         store_to_csv(sample_product_list, filepath)
@@ -51,8 +49,7 @@ class TestStore(unittest.TestCase):
 
         expected_string = (
             "1652119616.320101,2022-05-09,20:06:56,Echo Dot (4. Generation) | Smarter Lautsprecher mit "
-            "Alexa | Anthrazit,12345,59.99,False,29.99,45%,True,amazon,,,False,,B084DWG2VQ,"
-            ",,,,,,,"
+            "Alexa | Anthrazit,12345,59.99,False,29.99,45%,True,amazon,False,B084DWG2VQ,"
             "https://www.amazon.de/der-neue-echo-dot-4-generation-smarter-lautsprecher-mit-alexa"
             "-anthrazit/dp/B084DWG2VQ "
         )

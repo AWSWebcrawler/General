@@ -15,7 +15,7 @@ from crawler.proxy.proxy_service import ProxyService
 from crawler.config.config_reader import read_config_files
 from crawler.header.header_creater import generate_header
 from crawler.item_factory.item_factory import create_item
-from crawler.persistence.store import store_items
+from crawler.persistence.store_scraper_data import store_items
 from crawler.exceptions.proxy_exception import ProxyListIsEmptyError
 
 
