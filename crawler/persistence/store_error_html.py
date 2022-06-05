@@ -44,9 +44,3 @@ def store_to_s3(error_string, html, settings_dict: dict) -> None:
 
     simple_storage_service.put_object(bucket_name, s3_filename, Body=html)
 
-# error_dict_test = {"Error 404": "<body><button>Tische sauber</button></body>"}
-# settings_dict = {
-#     "aws_env": True,
-#     "s3_bucket": "firstcrawlerbucket",
-# }
-# store_error_html(error_dict_test, settings_dict)

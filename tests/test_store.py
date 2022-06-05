@@ -2,15 +2,17 @@
 import unittest
 import os
 from persistence.store_scraper_data import store_to_csv
+from persistence.store_error_html import store_to_html
+from persistence.store_error_url import store_error_url
 
 
 class TestStore(unittest.TestCase):
     """Test the write_to_csv method in store_scraper_data"""
+
     def test_store_to_csv(self):
         """Tests the store_to_csv method of the persistence module.
         Stores given productinformation into a file
         and checks if the written data matches the excepted values"""
-
         sample_product_list = [
             {
                 "name": '"Echo Dot (4. Generation) | '
@@ -67,30 +69,59 @@ class TestStore(unittest.TestCase):
             "on_sale_since",
             "url",
         ]
-
         filepath = "testCSV.csv"
         store_to_csv(sample_product_list, filepath, header_list)
         last_line = ""
         with open(filepath, newline="", encoding="utf-8") as file:
             last_line = file.readlines()[-1]
             print(last_line)
-
         file.close()
         # removing the created file so there is no dead weight in the module directories
         os.remove(filepath)
-
-        expected_string = (
-            "1652119616.320101,2022-05-09,20:06:56,"
-            "Echo Dot (4. Generation) | Smarter Lautsprecher mit "
-            "Alexa | Anthrazit,12345,59.99,False,29.99,45%,"
-            "True,amazon,,,False,,B084DWG2VQ,"
-            ",,,,,,,"
-            "https://www.amazon.de/der-neue-echo-dot-4-"
-            "generation-smarter-lautsprecher-mit-alexa"
-            "-anthrazit/dp/B084DWG2VQ "
-        )
+        expected_string = ("1652119616.320101,2022-05-09,20:06:56,"
+                           "Echo Dot (4. Generation) | Smarter Lautsprecher mit "
+                           "Alexa | Anthrazit,12345,59.99,False,29.99,45%,"
+                           "True,amazon,,,False,,B084DWG2VQ,"
+                           ",,,,,,,"
+                           "https://www.amazon.de/der-neue-echo-dot-4-"
+                           "generation-smarter-lautsprecher-mit-alexa"
+                           "-anthrazit/dp/B084DWG2VQ ")
 
         # Need to append other rows/ lines if tested differently
+        self.assertEqual(
+            expected_string.rstrip(),
+            last_line.rstrip(),
+            "The last line does not match with expected result",
+        )
+
+    def test_store_to_html(self):
+        filepath = "testHTML.html"
+        store_to_html("testHTML", "<body><button>Tische sauber</button></body>")
+        with open(filepath, newline="", encoding="utf-8") as file:
+            last_line = file.readlines()[-1]
+            print(last_line)
+        file.close()
+        expected_string = "<body><button>Tische sauber</button></body>"
+        self.assertEqual(
+            expected_string.rstrip(),
+            last_line.rstrip(),
+            "The last line does not match with expected result",
+        )
+
+    def test_store_to_url(self):
+        filepath = "testHTML.csv"
+        error_dict_test = {"irgendein text"}
+        settings_dict = {
+            "aws_env": True,
+            "s3_bucket": "firstcrawlerbucket",
+        }
+        store_error_url(error_dict_test, settings_dict)
+        with open(filepath, newline="", encoding="utf-8") as file:
+            last_line = file.readlines()[-1]
+            print(last_line)
+        file.close()
+        os.remove(filepath)
+        expected_string = "irgendein text"
         self.assertEqual(
             expected_string.rstrip(),
             last_line.rstrip(),
