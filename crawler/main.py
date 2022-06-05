@@ -43,12 +43,14 @@ def crawl(url_filepath: str, settings_filepath: str, aws_client_info=None) -> No
     proxy_service = ProxyService()
     urls = settings_dict["urls"]
     product_output_list = []
+    urls_with_problem = {}
+    function_name_with_html = {}
 
     threads = []
     for n in range(1, 5):
         crawler_thread = Thread(
             target=proxy_threading,
-            args=(urls, proxy_service, settings_dict, product_output_list),
+            args=(urls, proxy_service, settings_dict, product_output_list, urls_with_problem, function_name_with_html),
         )
         threads.append(crawler_thread)
         crawler_thread.start()
@@ -74,13 +76,17 @@ def proxy_threading(
     proxy_service: ProxyService,
     settings_dict: dict,
     product_output_list: list,
+    urls_with_problem: dict,
+    html_with_error: dict
 ):
     """Threading method"""
     while urls:
         url = urls.pop()
         try:
             header = generate_header(settings_dict)
-            response = proxy_service.get_html(url, header)
+            response = proxy_service.get_html(url, header, urls_with_problem)
+            if response is None:
+                continue
             logging.info(
                 "Time for request with proxy "
                 + response["proxy"]
@@ -91,7 +97,7 @@ def proxy_threading(
             sys.exit(
                 "No more proxies left in the proxy list. The program has been stopped!"
             )
-        product_dict = create_item(response["html"], url)
+        product_dict = create_item(response["html"], url, html_with_error)
         product_output_list.append(product_dict)
 
 
