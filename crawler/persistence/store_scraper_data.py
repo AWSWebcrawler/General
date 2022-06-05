@@ -7,10 +7,8 @@ import csv
 import logging
 from os.path import exists
 from datetime import datetime as dt, timedelta, timezone
-from crawler.exceptions.exceptions_config_reader import CouldNotWriteToFileError
-
 import boto3
-
+from crawler.exceptions.exceptions_config_reader import CouldNotWriteToFileError
 from crawler.logging.decorator import decorator_for_logging
 
 
@@ -53,7 +51,8 @@ def store_item(product_dict: dict, settings_dict: dict) -> None:
 
 @decorator_for_logging
 def store_to_csv(product_output_list: list, filepath: str, header_list: list) -> None:
-    """Gets called by store_item with a list of product dictionaries containing product information
+    """Gets called by store_item with a list of product dictionaries
+    containing product information
     and stores the products as lines in a csv file"""
     file_exists = exists(filepath)
     logging.debug("File in filepath: %s exists: %s", filepath, str(file_exists))
