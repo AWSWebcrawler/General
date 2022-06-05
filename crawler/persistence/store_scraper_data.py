@@ -51,9 +51,9 @@ def store_item(product_dict: dict, settings_dict: dict) -> None:
 
 @decorator_for_logging
 def store_to_csv(product_output_list: list, filepath: str, header_list: list) -> None:
-    """Gets called by store_item with a list of product dictionaries
-    containing product information
-    and stores the products as lines in a csv file"""
+    """Gets called by store_item with a list of product
+    dictionaries containing product information
+       and stores the products as lines in a csv file"""
     file_exists = exists(filepath)
     logging.debug("File in filepath: %s exists: %s", filepath, str(file_exists))
     with open(filepath, 'a', encoding='utf-8', newline='') as file:
@@ -83,7 +83,7 @@ def store_to_csv(product_output_list: list, filepath: str, header_list: list) ->
 
 
 @decorator_for_logging
-def store_to_s3(product_dict: dict, settings_dict: dict, headers: list) -> None:
+def store_to_s3(product_output: dict, settings_dict: dict, header_list: list) -> None:
     """Method gets an product dictionary and the name of the used client.
     Items from the product_dict are then
     stored in S3 in CSV format."""
@@ -97,28 +97,27 @@ def store_to_s3(product_dict: dict, settings_dict: dict, headers: list) -> None:
                   f"{str(now.hour)}/" \
                   f"{str(now.minute)}/" \
                   f"{settings_dict['client']}_lambda.csv"
-    local_file = "/tmp/download.csv"
+    # local_file = "/tmp/download.csv"
     simple_storage_service = boto3.resource("s3")
     logging.debug("writing to bucket %s with filename %s", bucket_name, s3_filename)
     body = ""
 
-    for item in headers:
-        body += \
-            str(product_dict[item]).replace(',', '').replace('"', '').replace("'", '')
-        if item != headers[-1]:
+    for item in header_list:
+        body += item
+        if item != header_list[-1]:
             body += ","
     body += "\n"
 
-    with open(local_file, mode="w", encoding="utf-8") as file:
-        empty_test_char = file.read(1)
-        if empty_test_char:
-            column_names = ""
-            for item in headers:
-                column_names += item
-                if item != headers[-1]:
-                    column_names += ","
-            column_names += "\n"
-            file.write(column_names)
-        file.write(body)
-
-    simple_storage_service.meta.client.upload_file(local_file, bucket_name, s3_filename)
+    for product_dict in product_output:
+        for item in header_list:
+            body += (
+                str(product_dict[item])
+                    .replace(",", "")
+                    .replace('"', "")
+                    .replace("'", "")
+            )
+            if item != header_list[-1]:
+                body += ","
+        body += "\n"
+    body = body.decode("utf-8", "ignore")
+    simple_storage_service.put_object(bucket_name, s3_filename, Body=body)
