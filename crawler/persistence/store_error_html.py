@@ -9,22 +9,20 @@ from crawler.logging.decorator import decorator_for_logging
 
 @decorator_for_logging
 def store_error_html(error_dict: dict, settings_dict: dict) -> None:
-    logging.debug("store_error_methode gestartet")
-    error_string = list(error_dict.keys())[0]
-    html_list = error_dict[error_string]
     if settings_dict["aws_env"]:
-        store_to_csv_html(error_string, html_list)
+        for item in error_dict:
+            store_to_s3(item, error_dict[item], settings_dict)
     else:
-        store_to_s3(error_string, html_list, settings_dict)
+        for item in error_dict:
+            store_to_csv_html(item, error_dict[item])
 
 
 @decorator_for_logging
-def store_to_csv_html(error_string: str, html: list):
+def store_to_csv_html(error_string: str, html_list: list):
     body = ''
-    with open(error_string + ".csv", "w", encoding='utf-8') as file:
-        for item in html:
-            item = str(item).replace(',', '')
-            body += item
+    with open("../output/" + error_string + ".csv", "w", encoding='utf-8') as file:
+        for item in html_list:
+            body += item.replace(",", '')
             body += ','
         file.write(body)
         file.close()

@@ -102,9 +102,10 @@ def proxy_threading(
             )
         product_dict = create_item(response["html"], url, html_with_error)
         product_output_list.append(product_dict)
-
-    store_error_url(urls_with_problem, settings_dict)
-    store_error_html(html_with_error, settings_dict)
+    if urls_with_problem:
+        store_error_url(urls_with_problem, settings_dict)
+    if html_with_error:
+        store_error_html(html_with_error, settings_dict)
 
 
 if __name__ == "__main__":

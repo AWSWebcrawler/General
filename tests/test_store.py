@@ -96,17 +96,20 @@ class TestStore(unittest.TestCase):
         )
 
     def test_store_to_html(self):
-        test_list = ["<body><button>1 Tisch sauber</button></body>",
+        """tests the store html module"""
+        test_list = ["<body><button>1 Tisch,,,, sauber</button></body>",
                      "<body><button>2 Tische sauber</button></body>",
                      "<body><button>3 Tische sauber</button></body>"]
-        filepath = "testHTML.csv"
+        filepath = "../output/testHTML.csv"
         store_to_csv_html("testHTML", test_list)
         erg = ''
 
         with open(filepath, newline="", encoding="utf-8") as file:
-            csvFile = csv.reader(file)
-            for lines in csvFile:
-                erg += lines.pop().replace(",", '')
+            csv_file = csv.reader(file)
+            for lines in csv_file:
+                for line in lines:
+                    erg += line.replace(",", '')
+        os.remove(filepath)
         file.close()
         expected_string = "<body><button>1 Tisch sauber</button></body>" \
                           "<body><button>2 Tische sauber</button></body>" \
@@ -118,21 +121,27 @@ class TestStore(unittest.TestCase):
         )
 
     def test_store_to_url(self):
-        filepath = "irgendein_text.csv"
-        error_dict_test = {"irgendein_text": "noch krasserer text"}
+        """tests the store url method"""
+        error_dict_test = {"irgendein_text": "noch krasserer text",
+                           "bananen": "bananen"}
         settings_dict = {
             "aws_env": True,
             "s3_bucket": "firstcrawlerbucket",
         }
         store_error_url(error_dict_test, settings_dict)
-        with open(filepath, newline="", encoding="utf-8") as file:
-            last_line = file.readlines()[-1]
-            print(last_line)
+        erg = ''
+        for item in error_dict_test:
+            with open("../output/" + item + ".csv",
+                      newline="", encoding="utf-8") as file:
+                erg += file.readlines()[-1]
+                erg += ', '
+                print(erg)
+            os.remove("../output/" + item + ".csv")
         file.close()
-        os.remove(filepath)
-        expected_string = "noch krasserer text"
+
+        expected_string = "noch krasserer text, bananen,"
         self.assertEqual(
             expected_string.rstrip(),
-            last_line.rstrip(),
+            erg.rstrip(),
             "The last line does not match with expected result",
         )
