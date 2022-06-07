@@ -123,22 +123,20 @@ class TestStore(unittest.TestCase):
     def test_store_to_url(self):
         """tests the store url method"""
         error_dict_test = {"irgendein_text": "noch krasserer text",
-                           "bananen": "bananen"}
-        # settings_dict = {
-        #     "aws_env": True,
-        #     "s3_bucket": "firstcrawlerbucket",
-        # }
+                           "bananen": "bananen",
+                           "irgendein_text132": "noch krasserer text"}
+        test = {'noch krasserer text': ['irgendein_text', 'irgendein_text132'], 'bananen': ['bananen']}
         store_to_csv_error_url(error_dict_test)
         erg = ''
-        for item in error_dict_test:
-            with open("../output/" + error_dict_test[item] + ".csv",
+        for item in test:
+            with open("../output/" + item + ".csv",
                       newline="", encoding="utf-8") as file:
                 erg += file.readlines()[-1]
                 print(erg)
-            os.remove("../output/" + error_dict_test[item] + ".csv")
+            os.remove("../output/" + item + ".csv")
         file.close()
 
-        expected_string = "irgendein_text,bananen,"
+        expected_string = "irgendein_text,irgendein_text132,bananen,"
         self.assertEqual(
             expected_string.rstrip(),
             erg.rstrip(),

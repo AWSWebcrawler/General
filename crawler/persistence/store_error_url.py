@@ -17,10 +17,21 @@ def store_error_url(error_dict: dict, settings_dict: dict) -> None:
 
 @decorator_for_logging
 def store_to_csv_error_url(error_dict: dict):
-    for key in error_dict:
-        with open("../output/" + error_dict[key] + ".csv", "a", encoding='utf-8') as file:
+    refactored_dict = {}
+    for key, value in error_dict.items():
+        if value in refactored_dict:
+            refactored_dict[value].append(key)
+        else:
+            refactored_dict[value] = [key]
+    for key in refactored_dict:
+        body = ''
+        for val in refactored_dict[key]:
+            body += val
+            body += ','
+
+        with open("../output/" + key + ".csv", "a", encoding='utf-8') as file:
             key += ','
-            file.writelines(key)
+            file.writelines(body)
         file.close()
 
 
@@ -33,7 +44,13 @@ def store_to_s3(error_dict: dict, settings_dict: dict) -> None:
     bucket_name = settings_dict["s3_bucket"]
     simple_storage_service = boto3.resource("s3")
     now = dt.now(timezone(timedelta(hours=2)))
-    for key in error_dict:
+    refactored_dict = {}
+    for key, value in error_dict.items():
+        if value in refactored_dict:
+            refactored_dict[value].append(key)
+        else:
+            refactored_dict[value] = [key]
+    for key in refactored_dict:
         s3_filename = f"ErrorURL/" \
                       f"{str(now.year)}/" \
                       f"{str(now.month)}/" \
@@ -41,9 +58,13 @@ def store_to_s3(error_dict: dict, settings_dict: dict) -> None:
                       f"{str(now.hour)}/" \
                       f"{str(now.minute)}/" \
                       f"{key}.csv"
+        body = ''
+        for val in refactored_dict[key]:
+            body += val
+            body += ','
 
         logging.debug("writing to bucket %s with filename %s", bucket_name, s3_filename)
         # simple_storage_service.put_object(bucket_name, s3_filename, Body=html)
         simple_storage_service \
             .Bucket(bucket_name) \
-            .put_object(key=s3_filename, Body=error_dict[key])
+            .put_object(key=s3_filename, Body=body)
