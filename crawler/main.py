@@ -60,6 +60,10 @@ def crawl(url_filepath: str, settings_filepath: str, aws_client_info=None) -> No
         crawler_thread.join()
 
     store_item(product_output_list, settings_dict)
+    if urls_with_problem:
+        store_error_url(urls_with_problem, settings_dict)
+    if function_name_with_html:
+        store_error_html(function_name_with_html, settings_dict)
     logging.info("Total run time: " + str(time.time() - start_time))
 
 
@@ -81,7 +85,6 @@ def proxy_threading(
     urls_with_problem: dict,
     html_with_error: dict
 ):
-
     """Threading method"""
     while urls:
         url = urls.pop()
@@ -102,10 +105,7 @@ def proxy_threading(
             )
         product_dict = create_item(response["html"], url, html_with_error)
         product_output_list.append(product_dict)
-    if urls_with_problem:
-        store_error_url(urls_with_problem, settings_dict)
-    if html_with_error:
-        store_error_html(html_with_error, settings_dict)
+
 
 
 if __name__ == "__main__":
