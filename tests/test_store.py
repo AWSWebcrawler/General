@@ -4,7 +4,7 @@ import unittest
 import os
 from persistence.store_scraper_data import store_to_csv
 from persistence.store_error_html import store_to_csv_html
-from persistence.store_error_url import store_error_url
+from persistence.store_error_url import store_to_csv_error_url
 
 
 class TestStore(unittest.TestCase):
@@ -124,22 +124,21 @@ class TestStore(unittest.TestCase):
         """tests the store url method"""
         error_dict_test = {"irgendein_text": "noch krasserer text",
                            "bananen": "bananen"}
-        settings_dict = {
-            "aws_env": True,
-            "s3_bucket": "firstcrawlerbucket",
-        }
-        store_error_url(error_dict_test, settings_dict)
+        # settings_dict = {
+        #     "aws_env": True,
+        #     "s3_bucket": "firstcrawlerbucket",
+        # }
+        store_to_csv_error_url(error_dict_test)
         erg = ''
         for item in error_dict_test:
-            with open("../output/" + item + ".csv",
+            with open("../output/" + error_dict_test[item] + ".csv",
                       newline="", encoding="utf-8") as file:
                 erg += file.readlines()[-1]
-                erg += ', '
                 print(erg)
-            os.remove("../output/" + item + ".csv")
+            os.remove("../output/" + error_dict_test[item] + ".csv")
         file.close()
 
-        expected_string = "noch krasserer text, bananen,"
+        expected_string = "irgendein_text,bananen,"
         self.assertEqual(
             expected_string.rstrip(),
             erg.rstrip(),
