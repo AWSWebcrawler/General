@@ -32,7 +32,38 @@ def generate_header(settings: dict) -> dict:
                    "accept-encoding": "gzip, deflate, br",
                    "accept-language": "de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7",
                    "viewport-width": "1080",
-                   'Connection': 'keep-alive'}
+                   'Connection': 'keep-alive',
+                   }
+    if software == 'chrome':
+        header_dict["device-memory"] = 0.25     #available ram
+        header_dict["downlink"] = 1.7   #download speed
+        header_dict["dpr"] = 1  #device pixel ratio
+        header_dict["rtt"] = 1  #roundtrip time including server delay
+        header_dict["sec-ch-device-memory"] = 0.25
+        header_dict["sec-ch-ua"] = ' Not A;Brand";v="99",' \
+                                   ' "Chromium";v="96",' \
+                                   ' "Google Chrome";v="96'
+        header_dict["sec-ch-ua-mobile"] = '?0'
+        if client == 'macintosh':
+            header_dict["sec-ch-ua-platform"] = 'macOS'
+        else:
+            header_dict['sec-ch-ua-platform'] = 'windows'
+        header_dict["sec-fetch-dest"] = 'document'
+        header_dict["sec-fetch-mode"] = 'navigate'
+        header_dict["sec-fetch-site"] = 'same-origin'
+        header_dict["sec-fetch-user"] = "?1"
+        header_dict["upgrade-insecure-requests"] = 1
+    if software == 'firefox':
+        header_dict['DNT'] = 1
+        header_dict["Host"] = 'www.amazon.de'
+        header_dict["sec-fetch-dest"] = 'document'
+        header_dict["sec-fetch-mode"] = 'navigate'
+        header_dict["sec-fetch-site"] = 'same-origin'
+        header_dict["sec-fetch-user"] = "?1"
+        header_dict["TE"] = 'trailers'
+        header_dict["upgrade-insecure-requests"] = 1
+    if software == 'safari':
+        header_dict["Host"] = 'www.amazon.de'
     logging.debug("The Returned Dictionary valued: %s", str(header_dict))
     return header_dict
 
