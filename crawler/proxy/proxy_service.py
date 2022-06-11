@@ -26,17 +26,21 @@ class ProxyService:
         self.proxy_list = _get_proxies(self.proxy_urls)
         self.current_proxy = self.proxy_list.pop()
 
-    def get_html(self, url: str, header: dict) -> dict:
+    def get_html(self, url: str, header: dict, urls_with_problem: dict) -> dict:
         """Calls the following methods."""
-        while True:
+        counter = 0
+        while counter < 3:
+            counter += 1
             try:
                 return _call_url(url, header, self.current_proxy)
             except (ProxyGotBlockedError, ProxyNotWorkingError, SlowProxyError) as error:
                 logging.error(error)
+                urls_with_problem[url] = str(type(error).__name__)
                 try:
                     self.current_proxy = self.proxy_list.pop()
                 except IndexError:
                     raise ProxyListIsEmptyError
+        return None
 
 
 def _call_url(url: str, header: dict, current_proxy: str) -> dict:
