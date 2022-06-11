@@ -49,7 +49,7 @@ def crawl(url_filepath: str, settings_filepath: str, aws_client_info=None) -> No
     function_name_with_html = {}
 
     threads = []
-    for n in range(1, 5):
+    for n in range(1, 3):
         crawler_thread = Thread(
             target=proxy_threading,
             args=(urls, proxy_service, settings_dict, product_output_list, urls_with_problem, function_name_with_html),
