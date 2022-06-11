@@ -31,10 +31,14 @@ def create_item(html: str, url: str, function_name_with_html: dict) -> dict:
 
     dic = {
         "name": _check_return_value(
-            _get_name(tree), "get_name", function_name_with_html, html
+            _get_name(tree), "get_name", function_name_with_html, html, tree
         ),
         "current_price": _check_return_value(
-            _get_current_price(tree), "get_current_price", function_name_with_html, html
+            _get_current_price(tree),
+            "get_current_price",
+            function_name_with_html,
+            html,
+            tree,
         ),
         "price_regular": _get_regular_price(tree),
         "prime": _get_prime(tree),
@@ -47,7 +51,7 @@ def create_item(html: str, url: str, function_name_with_html: dict) -> dict:
         "amazon_choice": _get_amazon_choice(tree),
         "amazon_choice_for": _get_amazon_choice_for(tree),
         "asin": _check_return_value(
-            _get_asin(tree), "get_asin", function_name_with_html, html
+            _get_asin(tree), "get_asin", function_name_with_html, html, tree
         ),
         "product_id": _get_product_id(tree),
         "manufacturer": _get_manufacturer(tree),
@@ -57,7 +61,7 @@ def create_item(html: str, url: str, function_name_with_html: dict) -> dict:
         "review_score": _get_review_score(tree),
         "on_sale_since": _get_on_sale_since(tree),
         "url": _check_return_value(
-            _get_url(url), "_get_url", function_name_with_html, html
+            _get_url(url), "_get_url", function_name_with_html, html, tree
         ),
         "timestamp": _get_timestamp(datetime_now),
         "date": _get_date(datetime_now),
@@ -68,13 +72,41 @@ def create_item(html: str, url: str, function_name_with_html: dict) -> dict:
 
 
 @decorator_for_logging
-def _check_return_value(value, function_name, html_with_error: dict, html: str):
+def _check_return_value(
+    value, function_name, html_with_error: dict, html: str, tree: etree
+):
+    """Adding the html to the error list if an important item was not found."""
     if value is None:
-        if function_name in html_with_error.keys():
-            html_with_error[function_name].append(html)
-        else:
-            html_with_error[function_name] = [html]
+        if not out_of_stock(tree):
+            if function_name in html_with_error.keys():
+                html_with_error[function_name].append(html)
+            else:
+                html_with_error[function_name] = [html]
     return value
+
+
+@decorator_for_logging
+def out_of_stock(tree: etree) -> bool:
+    """Checking if the product is out of stock"""
+
+    div_tag = tree.find('.//div[@id = "outOfStock"]')
+
+    if div_tag is None:
+        return False
+
+    span_tags = div_tag.findall(".//span")
+
+    if span_tags is None:
+        return False
+
+    try:
+        out_of_stock_text = span_tags[0].text
+        if "Derzeit nicht verfügbar" in out_of_stock_text:
+            return True
+    except (IndexError, AttributeError):
+        pass
+
+    return False
 
 
 @decorator_for_logging
