@@ -10,13 +10,14 @@ from crawler.logging.decorator import decorator_for_logging
 @decorator_for_logging
 def store_error_url(error_dict: dict, settings_dict: dict) -> None:
     if settings_dict["aws_env"]:
-        store_to_s3(error_dict)
+        store_to_s3(error_dict, settings_dict)
     else:
         store_to_csv_error_url(error_dict)
 
 
 @decorator_for_logging
-def store_to_csv_error_url(error_dict: dict):
+def store_to_csv_error_url(error_dict: dict) -> None:
+    """Store to local machine"""
     refactored_dict = {}
     for key, value in error_dict.items():
         if value in refactored_dict:
@@ -57,7 +58,7 @@ def store_to_s3(error_dict: dict, settings_dict: dict) -> None:
                       f"{str(now.day)}/" \
                       f"{str(now.hour)}/" \
                       f"{str(now.minute)}/" \
-                      f"{key}.csv"
+                      f"{key}_{settings_dict['client']}.csv"
         body = ''
         for val in refactored_dict[key]:
             body += val
