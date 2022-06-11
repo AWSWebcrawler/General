@@ -44,9 +44,9 @@ def generate_header(settings: dict) -> dict:
                                    ' "Chromium";v="96",' \
                                    ' "Google Chrome";v="96'
         header_dict["sec-ch-ua-mobile"] = '?0'
-        if client == 'macintosh':
+        if check_client == 'macintosh':
             header_dict["sec-ch-ua-platform"] = 'macOS'
-        else:
+        elif check_client == 'windows':
             header_dict['sec-ch-ua-platform'] = 'windows'
         header_dict["sec-fetch-dest"] = 'document'
         header_dict["sec-fetch-mode"] = 'navigate'
