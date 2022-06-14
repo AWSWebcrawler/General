@@ -1,5 +1,6 @@
 """Class to test the item sold_by_amazon."""
 import unittest
+
 from crawler.item_factory import item_factory
 
 

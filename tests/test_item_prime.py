@@ -1,5 +1,6 @@
 """Class to test the item prime."""
 import unittest
+
 from crawler.item_factory import item_factory
 
 

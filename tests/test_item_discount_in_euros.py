@@ -1,5 +1,6 @@
 """Class to test the item discount_in_euros."""
 import unittest
+
 from crawler.item_factory import item_factory
 
 
