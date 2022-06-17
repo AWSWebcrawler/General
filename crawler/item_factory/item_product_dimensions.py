@@ -40,6 +40,8 @@ def _get_product_dimensions_from_list(tree: etree):
                 list_item.find('.//span[@class = "a-text-bold"]')
                 .text.strip()
                 .startswith("Produktabmessungen")
+            ) or list_item.find(".//th").text.strip().startswith(
+                "Verpackungsabmessungen"
             ):
                 return (list_item.findall(".//span")[1]).text
         except (TypeError, AttributeError, IndexError):
@@ -63,7 +65,11 @@ def _get_product_dimensions_from_table(tree: etree):
 
     for table_item in table_row_tags:
         try:
-            if table_item.find(".//th").text.strip().startswith("Produktabmessungen"):
+            if table_item.find(".//th").text.strip().startswith(
+                "Produktabmessungen"
+            ) or table_item.find(".//th").text.strip().startswith(
+                "Verpackungsabmessungen"
+            ):
                 product_dimension = (table_item.find(".//td")).text
                 return product_dimension.replace("\u200e", "").strip()
         except (TypeError, AttributeError):

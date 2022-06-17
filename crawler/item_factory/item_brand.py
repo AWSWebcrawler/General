@@ -24,7 +24,10 @@ def _get_brand(tree: etree):
     try:
         if "Amazon" in anchor_tag.text:
             return "Amazon"
-        return anchor_tag.text.split("den ")[1].replace("-Store", "")
+        try:
+            return anchor_tag.text.split("den ")[1].replace("-Store", "")
+        except (TypeError, AttributeError, IndexError):
+            return anchor_tag.text.split("Marke: ")[1]
     except (TypeError, AttributeError, IndexError):
         logging.warning("Can not parse item brand")
 

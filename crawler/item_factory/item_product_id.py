@@ -36,12 +36,16 @@ def _get_product_id_from_list(tree: etree):
 
     for list_item in span_tags:
         try:
-            if list_item.find(
-                './/span[@class = "a-text-bold"]'
-            ).text.strip().startswith("Modellnummer") or list_item.find(
-                './/span[@class = "a-text-bold"]'
-            ).text.strip().startswith(
-                "Teilenummer"
+            if (
+                list_item.find('.//span[@class = "a-text-bold"]')
+                .text.strip()
+                .startswith("Modellnummer")
+                or list_item.find('.//span[@class = "a-text-bold"]')
+                .text.strip()
+                .startswith("Teilenummer")
+                or list_item.find(".//th")
+                .text.strip()
+                .startswith("Artikelnummer")
             ):
                 return (list_item.findall(".//span")[1]).text
         except (TypeError, AttributeError, IndexError):
@@ -67,9 +71,11 @@ def _get_product_id_from_table(tree: etree):
 
     for table_item in table_row_tags:
         try:
-            if table_item.find(".//th").text.strip().startswith(
-                "Modellnummer"
-            ) or table_item.find(".//th").text.strip().startswith("Teilenummer"):
+            if (
+                table_item.find(".//th").text.strip().startswith("Modellnummer")
+                or table_item.find(".//th").text.strip().startswith("Teilenummer")
+                or table_item.find(".//th").text.strip().startswith("Artikelnummer")
+            ):
                 product_dimension = (table_item.find(".//td")).text
                 return product_dimension.replace("\u200e", "").strip()
         except (TypeError, AttributeError):

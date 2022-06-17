@@ -16,9 +16,9 @@ def _get_review_score(tree: etree):
         logging.info("tag for item review_score not found in html tree")
         return None
     try:
-        review_score: str = span_tag.attrib["title"].split(" ")[0]
+        review_score: str = span_tag.attrib["title"].split(" ")[0].replace(",", ".")
 
-        if (re.match(r"[0-9],[0-9]", review_score)) and (review_score is not None):
+        if (re.match(r"[0-9].[0-9]", review_score)) and (review_score is not None):
             return review_score
         return None
     except (TypeError, AttributeError, IndexError):

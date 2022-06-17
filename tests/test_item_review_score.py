@@ -43,7 +43,7 @@ class TestItemFactory(unittest.TestCase):
             self.urls["url1"],
             self.function_name_with_html,
         )
-        expected = "4,6"
+        expected = "4.6"
         self.assertEqual(
             expected,
             product["review_score"],
@@ -55,7 +55,7 @@ class TestItemFactory(unittest.TestCase):
             self.urls["url2"],
             self.function_name_with_html,
         )
-        expected = "4,6"
+        expected = "4.6"
         self.assertEqual(
             expected,
             product["review_score"],
@@ -67,7 +67,7 @@ class TestItemFactory(unittest.TestCase):
             self.urls["url3"],
             self.function_name_with_html,
         )
-        expected = "4,5"
+        expected = "4.5"
         self.assertEqual(
             expected,
             product["review_score"],
@@ -79,7 +79,7 @@ class TestItemFactory(unittest.TestCase):
             self.urls["url4"],
             self.function_name_with_html,
         )
-        expected = "4,1"
+        expected = "4.1"
         self.assertEqual(
             expected,
             product["review_score"],
