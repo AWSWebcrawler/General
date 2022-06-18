@@ -15,28 +15,28 @@ in the settings file you must define your desired settings.
 The program can then simply be started by calling the crawler.py script.
 
 # Architecture
-![](Architecture_AWSWebcrawler.png)
+![Architecture_AWSWebscraper](https://user-images.githubusercontent.com/102309432/174437708-a781bf07-70a2-4a53-bbaa-70aef55fc468.png)
 
 ## crawler
 The crawler module is the heart of the scraper application. As the "main script" it controls the logic 
 of the entire scraping process.
 The logic actually consists of a few simple calls to other modules:
-### 1. read_input()
+### 1. read_config_files()
 Calling the config_reader to get the settings and urls from the input files.
 Receives a dictionary with mentioned parameters.
-### 2. create_header(settings)
-Calling the header_creater modul to get the header that matches the settings returned by the config_reader.
+### 2. generate_header(settings)
+Calling the header modul to get the header that matches the settings returned by the config_reader.
 Receives a dictionary with the header parameters.
-### 3. do_reqeust(settings)
-Calling the spider module to initiate a web request. Receives the html response back.
+### 3. get_html(settings)
+Calling the proxy module to initiate a web request. Receives the html response back.
 ### 4. create_item(html)
 Calling the item_factory to get an item (amazon product with its attributes) in form of a dictionary.
 ### 5. store_item(item)
-Storing the item by calling the store module.
+Storing the item by calling the persistence module.
 
 After those method calls the crawler script terminates.
 
-## config_reader
+## config
 
 Reads the data from the config files and saves them in a dictionary which also serves as the return value. 
 In addition, the config_reader checks whether the specified settings and URLs are valid at all.
@@ -52,24 +52,24 @@ Example structure of the dictionary:
 }       
 ```
 
-## header_creater
+## header
 Generates a header for the subsequent web request based on the settings dictionary.
 Returns the header information as a dictionary.
 
-## spider
-The spider takes care of the complete logic for the web request. In the simple form,
+## proxy
+The proxy module takes care of the complete logic for the web request. In the simple form,
 a request is created via the python reqeusts module and the html-text from the resulting response is returned. 
-In order to bypass possible IP blocking, the use of a proxy service or a "ScraperAPI" is necessary. 
-The spider module will then also take care of these services. 
+In order to bypass possible IP blocking, we use a list of free proxy services to disguise our IPs.
+ 
 
 ## item_factory
 The item factory parses the passed html text and extracts the desired attributes. The attributes are then stored in a 
 dictionary and returned. 
 
-## store
-The Store module takes on the task that is already suggested by the name.
+## persistence
+The persistence module takes on the task that is already suggested by the name.
 The goal for this module is to detect whether you are on a local machine or in an AWS environment based on 
-environment variables. The correct storage method is then automatically selected either as a 
+environment variables. The correct storage method is selected automatically, by checking for AWS environment variables. The data is then stored either as a 
 csv file (local) or in an S3 bucket (AWS).
 
 ## logging and exceptions
