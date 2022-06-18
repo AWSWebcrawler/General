@@ -100,7 +100,9 @@ def _get_product_dimensions_from_div(tree: etree):
     except IndexError:
         div_tag_parent = div_tag_id.getparent()
         try:
-            div_tag_class = div_tag_parent.findall('.//div[@class = "content-grid-row-wrapper "]')[3]
+            div_tag_class = div_tag_parent.findall(
+                './/div[@class = "content-grid-row-wrapper "]'
+            )[3]
         except (IndexError, AttributeError):
             logging.info("tag for item product_dimensions not found in html tree")
             return None
