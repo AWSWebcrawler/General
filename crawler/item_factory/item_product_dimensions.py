@@ -43,7 +43,10 @@ def _get_product_dimensions_from_list(tree: etree):
             ) or list_item.find(".//th").text.strip().startswith(
                 "Verpackungsabmessungen"
             ):
-                return (list_item.findall(".//span")[1]).text
+                product_dimensions = (list_item.findall(".//span")[1]).text
+                if ";" in product_dimensions:
+                    return product_dimensions.split(";")[0]
+                return product_dimensions
         except (TypeError, AttributeError, IndexError):
             logging.warning("Can not parse item product_dimensions")
 
@@ -70,8 +73,11 @@ def _get_product_dimensions_from_table(tree: etree):
             ) or table_item.find(".//th").text.strip().startswith(
                 "Verpackungsabmessungen"
             ):
-                product_dimension = (table_item.find(".//td")).text
-                return product_dimension.replace("\u200e", "").strip()
+                product_dimensions = (table_item.find(".//td")).text
+                product_dimensions = product_dimensions.replace("\u200e", "").strip()
+                if ";" in product_dimensions:
+                    return product_dimensions.split(";")[0]
+                return product_dimensions
         except (TypeError, AttributeError):
             logging.warning("Can not parse item product_dimensions")
 
@@ -108,7 +114,10 @@ def _get_product_dimensions_from_div(tree: etree):
     for table_item in table_rows:
         try:
             if table_item.find(".//strong").text.strip().startswith("Abmessungen"):
-                return (table_item.findall(".//p")[1]).text
+                product_dimensions = (table_item.findall(".//p")[1]).text
+                if ";" in product_dimensions:
+                    return product_dimensions.split(";")[0]
+                return product_dimensions
         except (TypeError, AttributeError, IndexError):
             logging.warning("Can not parse item product_dimensions")
 
