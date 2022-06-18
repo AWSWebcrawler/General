@@ -101,6 +101,11 @@ def _get_regular_price_from_span(tree: etree) -> float:
         regular_price = re.sub(r"\D", " ", regular_price)
         regular_price = re.sub(" ", ".", regular_price.strip())
 
+        if re.match(r"[0-9]+\.[0-9]+\.[0-9]", regular_price) or re.match(
+            r"[0-9]+\.[0-9]+\.[0-9][0-9]]", regular_price
+        ):
+            return float(regular_price.replace(".", "", 1))
+
         if (
             (re.match(r"[0-9]+\.[0-9][0-9]", regular_price))
             or (re.match(r"[0-9]+\.[0-9]", regular_price))
