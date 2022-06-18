@@ -1,5 +1,6 @@
 """Class to test the item asin."""
 import unittest
+
 from crawler.item_factory import item_factory
 
 
@@ -32,18 +33,20 @@ class TestItemFactory(unittest.TestCase):
             'test_html_4': test_html_4,
         }
 
+        self.function_name_with_html = {}
+
     def test_create_item(self):
         """Tests the create item function of the item_factory module"""
 
-        product = item_factory.create_item(self.test_html['test_html_1'], self.urls['url1'])
+        product = item_factory.create_item(self.test_html['test_html_1'], self.urls['url1'], self.function_name_with_html)
         self.assertIsNone(product["shipping"], "The created item shipping does not match the expected output.")
 
-        product = item_factory.create_item(self.test_html['test_html_2'], self.urls['url2'])
+        product = item_factory.create_item(self.test_html['test_html_2'], self.urls['url2'], self.function_name_with_html)
         self.assertIsNone(product["shipping"], "The created item shipping does not match the expected output.")
 
-        product = item_factory.create_item(self.test_html['test_html_3'], self.urls['url3'])
+        product = item_factory.create_item(self.test_html['test_html_3'], self.urls['url3'], self.function_name_with_html)
         self.assertIsNone(product["shipping"], "The created item shipping does not match the expected output.")
 
-        product = item_factory.create_item(self.test_html['test_html_4'], self.urls['url4'])
+        product = item_factory.create_item(self.test_html['test_html_4'], self.urls['url4'], self.function_name_with_html)
         expected = 5.0
         self.assertEqual(expected, product["shipping"], "The created item shipping does not match the expected output.")
