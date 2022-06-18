@@ -55,7 +55,7 @@ class TestItemFactory(unittest.TestCase):
             self.urls["url2"],
             self.function_name_with_html,
         )
-        expected = "17.8 x 7.3 x 17.7 cm; 0.48 Gramm"
+        expected = "17.8 x 7.3 x 17.7 cm"
         self.assertEqual(
             expected,
             product["product_dimensions"],
@@ -67,7 +67,7 @@ class TestItemFactory(unittest.TestCase):
             self.urls["url3"],
             self.function_name_with_html,
         )
-        expected = "28 x 20 x 27.5 cm; 4.68 Kilogramm"
+        expected = "28 x 20 x 27.5 cm"
         self.assertEqual(
             expected,
             product["product_dimensions"],
@@ -79,7 +79,7 @@ class TestItemFactory(unittest.TestCase):
             self.urls["url4"],
             self.function_name_with_html,
         )
-        expected = "1.9 x 17.2 x 13.6 cm; 140 Gramm"
+        expected = "1.9 x 17.2 x 13.6 cm"
         self.assertEqual(
             expected,
             product["product_dimensions"],
