@@ -13,7 +13,7 @@ from crawler.logging.decorator import decorator_for_logging
 
 
 @decorator_for_logging
-def store_item(product_dict: dict, settings_dict: dict) -> None:
+def store_item(product_list: list, settings_dict: dict) -> None:
     """Method receives an item to be stored. It uses environment variables to determine
     whether storage in AWS S3 bucket or local in csv file is required"""
     header_list = [
@@ -43,11 +43,16 @@ def store_item(product_dict: dict, settings_dict: dict) -> None:
         "url",
         "client",
     ]
+    client = settings_dict["client"]
+    new_dict = product_list[0]
+    product_list.clear()
+    new_dict["client"] = client
+    product_list.append(new_dict)
     if settings_dict["aws_env"]:
-        store_to_s3(product_dict, settings_dict, header_list)
+        store_to_s3(product_list, settings_dict, header_list)
     else:
         filepath = "../output/" + settings_dict["client"] + ".csv"
-        store_to_csv(product_dict, filepath, header_list)
+        store_to_csv(product_list, filepath, header_list)
 
 
 @decorator_for_logging
