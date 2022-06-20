@@ -88,7 +88,7 @@ class TestStore(unittest.TestCase):
                            ",,,,,,,"
                            "https://www.amazon.de/der-neue-echo-dot-4-"
                            "generation-smarter-lautsprecher-mit-alexa"
-                           "-anthrazit/dp/B084DWG2VQ ")
+                           "-anthrazit/dp/B084DWG2VQ,chrome ")
 
         # Need to append other rows/ lines if tested differently
         self.assertEqual(
