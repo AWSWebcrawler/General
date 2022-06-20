@@ -41,6 +41,7 @@ def store_item(product_dict: dict, settings_dict: dict) -> None:
         "review_score",
         "on_sale_since",
         "url",
+        "client",
     ]
     if settings_dict["aws_env"]:
         store_to_s3(product_dict, settings_dict, header_list)

@@ -43,6 +43,7 @@ class TestStore(unittest.TestCase):
                 "number_of_reviews": None,
                 "review_score": None,
                 "on_sale_since": None,
+                "client":"chrome",
             }]
         header_list = [
             "timestamp",
@@ -69,6 +70,7 @@ class TestStore(unittest.TestCase):
             "review_score",
             "on_sale_since",
             "url",
+            "client",
         ]
         filepath = "testCSV.csv"
         store_to_csv(sample_product_list, filepath, header_list)
