@@ -43,6 +43,7 @@ class TestStore(unittest.TestCase):
                 "number_of_reviews": None,
                 "review_score": None,
                 "on_sale_since": None,
+                "client":"chrome",
             }]
         header_list = [
             "timestamp",
@@ -69,6 +70,7 @@ class TestStore(unittest.TestCase):
             "review_score",
             "on_sale_since",
             "url",
+            "client",
         ]
         filepath = "testCSV.csv"
         store_to_csv(sample_product_list, filepath, header_list)
@@ -86,7 +88,7 @@ class TestStore(unittest.TestCase):
                            ",,,,,,,"
                            "https://www.amazon.de/der-neue-echo-dot-4-"
                            "generation-smarter-lautsprecher-mit-alexa"
-                           "-anthrazit/dp/B084DWG2VQ ")
+                           "-anthrazit/dp/B084DWG2VQ,chrome ")
 
         # Need to append other rows/ lines if tested differently
         self.assertEqual(
