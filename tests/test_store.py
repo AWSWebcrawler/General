@@ -2,7 +2,7 @@
 import csv
 import unittest
 import os
-from persistence.store_scraper_data import store_to_csv
+from persistence.store_scraper_data import store_item
 from persistence.store_error_html import store_to_csv_html
 from persistence.store_error_url import store_to_csv_error_url
 
@@ -43,37 +43,37 @@ class TestStore(unittest.TestCase):
                 "number_of_reviews": None,
                 "review_score": None,
                 "on_sale_since": None,
-                "client":"chrome",
-            }]
-        header_list = [
-            "timestamp",
-            "date",
-            "time",
-            "name",
-            "current_price",
-            "price_regular",
-            "prime",
-            "discount_in_euros",
-            "percent_discount",
-            "sold_by_amazon",
-            "seller",
-            "brand",
-            "shipping",
-            "amazon_choice",
-            "amazon_choice_for",
-            "asin",
-            "product_id",
-            "manufacturer",
-            "country_of_origin",
-            "product_dimensions",
-            "number_of_reviews",
-            "review_score",
-            "on_sale_since",
-            "url",
-            "client",
-        ]
-        filepath = "testCSV.csv"
-        store_to_csv(sample_product_list, filepath, header_list)
+
+            }, { "name": '"Echo Dot (4. Generation) | '
+                        'Smarter Lautsprecher mit Alexa" | Anthrazit',
+                "discount_in_euros": 29.99,
+                "price_regular": 59.99,
+                "prime": False,
+                "sold_by_amazon": True,
+                "seller": "amazon",
+                "asin": "B084DWG2VQ",
+                "url": "https://www.amazon.de/der-neue-echo-dot-4-"
+                       "generation-smarter-lautsprecher-mit-alexa-anthrazit"
+                       "/dp/B084DWG2VQ",
+                "timestamp": "1652119616.320101",
+                "date": "2022-05-09",
+                "time": "20:06:56",
+                "current_price": "12345",
+                "percent_discount": "45%",
+                "amazon_choice": False,
+                "brand": None,
+                "shipping": None,
+                "amazon_choice_for": None,
+                "product_id": None,
+                "manufacturer": None,
+                "country_of_origin": None,
+                "product_dimensions": None,
+                "number_of_reviews": None,
+                "review_score": None,
+                "on_sale_since": None,}]
+        settings_dict = {"client": "linux", "aws_env":False, }
+        filepath = "../output/linux.csv"
+        store_item(sample_product_list, settings_dict)
         last_line = ""
         with open(filepath, newline="", encoding="utf-8") as file:
             last_line = file.readlines()[-1]
@@ -88,7 +88,7 @@ class TestStore(unittest.TestCase):
                            ",,,,,,,"
                            "https://www.amazon.de/der-neue-echo-dot-4-"
                            "generation-smarter-lautsprecher-mit-alexa"
-                           "-anthrazit/dp/B084DWG2VQ,chrome ")
+                           "-anthrazit/dp/B084DWG2VQ,linux ")
 
         # Need to append other rows/ lines if tested differently
         self.assertEqual(
@@ -127,7 +127,8 @@ class TestStore(unittest.TestCase):
         error_dict_test = {"irgendein_text": "noch krasserer text",
                            "bananen": "bananen",
                            "irgendein_text132": "noch krasserer text"}
-        test = {'noch krasserer text': ['irgendein_text', 'irgendein_text132'], 'bananen': ['bananen']}
+        test = {'noch krasserer text': ['irgendein_text', 'irgendein_text132'],
+                'bananen': ['bananen']}
         store_to_csv_error_url(error_dict_test)
         erg = ''
         for item in test:

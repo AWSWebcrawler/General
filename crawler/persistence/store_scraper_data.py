@@ -43,16 +43,15 @@ def store_item(product_list: list, settings_dict: dict) -> None:
         "url",
         "client",
     ]
-    client = settings_dict["client"]
-    new_dict = product_list[0]
-    product_list.clear()
-    new_dict["client"] = client
-    product_list.append(new_dict)
+    hilf_list = []
+    for data_dict in product_list:
+        data_dict["client"] = settings_dict["client"]
+        hilf_list.append(data_dict)
     if settings_dict["aws_env"]:
-        store_to_s3(product_list, settings_dict, header_list)
+        store_to_s3(hilf_list, settings_dict, header_list)
     else:
         filepath = "../output/" + settings_dict["client"] + ".csv"
-        store_to_csv(product_list, filepath, header_list)
+        store_to_csv(hilf_list, filepath, header_list)
 
 
 @decorator_for_logging
